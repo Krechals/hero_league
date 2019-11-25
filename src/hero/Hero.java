@@ -8,6 +8,7 @@ public abstract class Hero {
     private int level;
     private int xLocation;
     private int yLocation;
+    private int freezeTime;
 
     public Hero(int id, int hp, int bonusHp, int x, int y) {
         this.id = id;
@@ -17,6 +18,7 @@ public abstract class Hero {
         this.level = 0;
         this.xLocation = x;
         this.yLocation = y;
+        this.freezeTime = 0;
     }
     public void move(char operation) {
         switch(operation) {

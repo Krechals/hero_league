@@ -1,6 +1,8 @@
 package main;
 
+import engine.GameProgress;
 import hero.Hero;
+import map.GameMap;
 import setup.HeroSetup;
 import setup.SingletonHeroList;
 
@@ -16,7 +18,7 @@ public class Main {
         GameInput gameInput = gameInputLoader.load();
 
         HeroSetup.setup(gameInput.getPlayersType(), gameInput.getPlayersLocation());
-        List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
-        System.out.println(heros.get(0).getxLocation() + " " + heros.get(0).getxLocation());
+
+        GameProgress.play(gameInput);
     }
 }
