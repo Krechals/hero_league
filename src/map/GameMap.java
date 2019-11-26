@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GameMap {
     private static GameMap instance;
-    List<List<Character>> mapTerrain;
+    List<List<TerrainList>> mapTerrain;
     List<List<Hero>> mapPlayer1;
     List<List<Hero>> mapPlayer2;
 
@@ -20,7 +20,15 @@ public class GameMap {
             mapPlayer1.add(new ArrayList<>());
             mapPlayer2.add(new ArrayList<>());
             for (int j = 0; j < mapString.get(i).length(); ++j) {
-                mapTerrain.get(i).add(mapString.get(i).charAt(j));
+                if (mapString.get(i).charAt(j) == 'L') {
+                    mapTerrain.get(i).add(TerrainList.LAND);
+                } else if (mapString.get(i).charAt(j) == 'V') {
+                    mapTerrain.get(i).add(TerrainList.VOLCANIC);
+                } else if (mapString.get(i).charAt(j) == 'D') {
+                    mapTerrain.get(i).add(TerrainList.DESERT);
+                } else {
+                    mapTerrain.get(i).add(TerrainList.WOODS);
+                }
                 mapPlayer1.get(i).add(null);
                 mapPlayer2.get(i).add(null);
             }
@@ -32,7 +40,7 @@ public class GameMap {
         }
         return instance;
     }
-    public List<List<Character>> getMapTerrain() {
+    public List<List<TerrainList>> getMapTerrain() {
         return mapTerrain;
     }
     public List<List<Hero>> getMapPlayer2() {
@@ -42,6 +50,13 @@ public class GameMap {
         return mapPlayer1;
     }
     public void setHeroOnMap(Hero h, int x, int y) {
+        // Erase map
+        if (h == null) {
+            mapPlayer1.get(x).set(y, null);
+            mapPlayer2.get(x).set(y, null);
+            return;
+        }
+        // Set hero on map
         if (mapPlayer1.get(x).get(y) == null) {
             mapPlayer1.get(x).set(y, h);
         } else if (mapPlayer2.get(x).get(y) == null) {
