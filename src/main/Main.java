@@ -1,12 +1,8 @@
 package main;
 
 import engine.GameProgress;
-import hero.Hero;
-import map.GameMap;
+import engine.Scoreboard;
 import setup.HeroSetup;
-import setup.SingletonHeroList;
-
-import java.util.List;
 
 public class Main {
     private Main() {
@@ -16,9 +12,10 @@ public class Main {
         // Gets data from input
         GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
         GameInput gameInput = gameInputLoader.load();
-
         HeroSetup.setup(gameInput.getPlayersType(), gameInput.getPlayersLocation());
 
         GameProgress.play(gameInput);
+
+        Scoreboard.print(args[0], args[1]);
     }
 }

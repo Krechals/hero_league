@@ -1,6 +1,7 @@
 package ability;
 
 import hero.Hero;
+import map.TerrainList;
 
 public class Ability {
     protected float terrainAmplifier;
@@ -31,7 +32,30 @@ public class Ability {
     public int getBaseDamage() {
         return Math.round(damage * terrainAmplifier * raceAmplifier);
     }
+    public int noRaceModifiersDamage() {
+        return Math.round(damage * terrainAmplifier);
+    }
+    public int noRaceModifiersDamage(Hero h) {
+        // implemented in sublcass
+        return 0;
+    }
+    public int noRaceModifiersDamage(TerrainList terrain) {
+        // implemented in subclass
+        return 0;
+    }
     public int getBaseDamage(Hero h) {
+        // implemented in subclass
+        return 0;
+    }
+    public int getBaseDamage(Hero h, Hero wiz) {
+        // implemented int subclass
+        return 0;
+    }
+    public int getBaseDamage(TerrainList terrain) {
+        // implemented in subclass
+        return 0;
+    }
+    public int getParalizedRounds(TerrainList terrain) {
         // implemented in subclass
         return 0;
     }

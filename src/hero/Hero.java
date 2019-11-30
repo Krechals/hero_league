@@ -3,6 +3,8 @@ package hero;
 import ability.Ability;
 import map.TerrainList;
 
+import java.time.chrono.ThaiBuddhistEra;
+
 public abstract class Hero {
     private int id;
     private int fullHp;
@@ -18,8 +20,9 @@ public abstract class Hero {
     private boolean isAlive;
     private int paralizedRounds;
     protected char initial;
-    Ability a1;
-    Ability a2;
+    protected Ability a1;
+    protected Ability a2;
+    private TerrainList terrain;
 
     public Hero(int id, int hp, int bonusHp, int x, int y) {
         boolean isAlive = true;
@@ -35,6 +38,7 @@ public abstract class Hero {
         this.overtimeDamaged = 0;
         this.timeDamage = 0;
         this.isAlive = true;
+        this.terrain = null;
     }
     public void move(char operation) {
         switch(operation) {
@@ -52,7 +56,19 @@ public abstract class Hero {
                 break;
         }
     }
-
+    public int getId() {
+        return id;
+    }
+    public int getPrevHP() {
+        // implemented in subclass
+        return 0;
+    }
+    public Ability getAbility1() {
+        return a1;
+    }
+    public Ability getAbility2() {
+        return a2;
+    }
     public int getxLocation() {
         return xLocation;
     }
@@ -76,6 +92,12 @@ public abstract class Hero {
                 this.killPlayer();
             }
         }
+    }
+    public void setTerrain(TerrainList mapTerrain) {
+        terrain = mapTerrain;
+    }
+    public TerrainList getTerrain() {
+        return terrain;
     }
     public int getHP() {
         return hp;
@@ -110,9 +132,11 @@ public abstract class Hero {
         paralizedRounds = rounds;
     }
     public void updateLevel() {
-        int newLevel = (xp - 250) / 50;
+        int newLevel = (xp - 200) / 50;
         if (newLevel > level) {
             level = newLevel;
+            fullHp = fullHp + newLevel * bonusHp;
+            hp = fullHp;
             a1.updateSkill(level);
             a2.updateSkill(level);
         }

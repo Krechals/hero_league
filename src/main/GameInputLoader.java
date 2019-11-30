@@ -31,12 +31,11 @@ public final class GameInputLoader {
             lines = fs.nextInt();
             columns = fs.nextInt();
 
-            for (int i = 0; i < lines * columns; ++i) {
+            for (int i = 0; i < lines; ++i) {
                 terrain.add(fs.nextWord());
             }
 
             noPlayers = fs.nextInt();
-
             for (int i = 0; i < noPlayers; ++i) {
                 playesrType.add(fs.nextWord());
                 playersLocation.add(fs.nextInt());

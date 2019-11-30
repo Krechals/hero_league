@@ -23,24 +23,24 @@ public class GameProgress {
             for (Hero currentHero : heros) {
                 // Remove heros previous location on map
                 map.setHeroOnMap(null, currentHero.getxLocation(), currentHero.getyLocation());
-
+            }
+            // Give overtime damage
+            for (Hero h : heros) {
+                h.overtimeDamage();
             }
             for (int heroID = 0; heroID < noHeros; ++heroID) {
                 Hero currentHero = heros.get(heroID);
 
                 // Update heros current location on map
-                char operation = gameInput.getPlayersMoves().get(round).charAt(heroID);
                 if (heros.get(heroID).isAlive()) {
+                    char operation = gameInput.getPlayersMoves().get(round).charAt(heroID);
                     if (!heros.get(heroID).isParalized()) {
                         heros.get(heroID).move(operation);
                     }
+                    heros.get(heroID).decreaseParalizedTime();
                     map.setHeroOnMap(currentHero, currentHero.getxLocation(), currentHero.getyLocation());
+                    heros.get(heroID).setTerrain(map.getTerrain(currentHero.getxLocation(), currentHero.getyLocation()));
                 }
-            }
-            // Give overtime damage
-            for (Hero h : heros) {
-                h.overtimeDamage();
-                h.decreaseParalizedTime();
             }
             // Attacks
             int lines = gameInput.getLineSize();
@@ -51,9 +51,12 @@ public class GameProgress {
                     if (areHerosOnTerrain(map, i, j)) {
                         Hero h1 = map.getMapPlayer1().get(i).get(j);
                         Hero h2 = map.getMapPlayer2().get(i).get(j);
+
                         TerrainList terrainType = map.getMapTerrain().get(i).get(j);
-                        h1.isAttackedBy(h2, terrainType);
                         h2.isAttackedBy(h1, terrainType);
+                        h1.isAttackedBy(h2, terrainType);
+
+                        System.out.println(h1.getHP() + " " + h2.getHP());
 
                         // Update xp if we have a winner
                         if (!h2.isAlive()) {
@@ -65,8 +68,6 @@ public class GameProgress {
                     }
                 }
             }
-
         }
-        Scoreboard.print();
     }
 }

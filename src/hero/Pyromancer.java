@@ -14,23 +14,24 @@ public class Pyromancer extends Hero {
     }
     @Override
     public void isAttackedBy(Hero hero, TerrainList terrain) {
-        if (terrain == TerrainList.VOLCANIC) {
-            hero.a1.setTerrainAmplifier(1.25f);
-            hero.a2.setTerrainAmplifier(1.25f);
-        } else {
-            hero.a1.setTerrainAmplifier(1f);
-            hero.a2.setTerrainAmplifier(1f);
-        }
         hero.attack(this, terrain);
+    }
+    private void setTerrainAmplifier(TerrainList terrain) {
+        if (terrain == TerrainList.VOLCANIC) {
+            a1.setTerrainAmplifier(1.25f);
+            a2.setTerrainAmplifier(1.25f);
+        } else {
+            a1.setTerrainAmplifier(1f);
+            a2.setTerrainAmplifier(1f);
+        }
     }
     @Override
     public void attack(Knight knight, TerrainList terrain) {
         a1.setRaceAmplifier(1.20f);
         a2.setRaceAmplifier(1.20f);
+        this.setTerrainAmplifier(terrain);
 
         knight.decreaseHP(a1.getBaseDamage());
-        knight.setOvertimeDamage(a1.getOvertimeDamage());
-        knight.setTimeDamage(a2.getTimeDamage());
 
         knight.unsetOvertimes();
         knight.decreaseHP(a2.getBaseDamage());
@@ -45,10 +46,9 @@ public class Pyromancer extends Hero {
     public void attack(Pyromancer pyro, TerrainList terrain) {
         a1.setRaceAmplifier(0.90f);
         a2.setRaceAmplifier(0.90f);
+        this.setTerrainAmplifier(terrain);
 
         pyro.decreaseHP(a1.getBaseDamage());
-        pyro.setOvertimeDamage(a1.getOvertimeDamage());
-        pyro.setTimeDamage(a1.getTimeDamage());
 
         pyro.unsetOvertimes();
         pyro.decreaseHP(a2.getBaseDamage());
@@ -63,10 +63,9 @@ public class Pyromancer extends Hero {
     public void attack(Rogue rogue, TerrainList terrain) {
         a1.setRaceAmplifier(0.80f);
         a2.setRaceAmplifier(0.80f);
+        this.setTerrainAmplifier(terrain);
 
         rogue.decreaseHP(a1.getBaseDamage());
-        rogue.setOvertimeDamage(a1.getOvertimeDamage());
-        rogue.setTimeDamage(a1.getTimeDamage());
 
         rogue.unsetOvertimes();
         rogue.decreaseHP(a2.getBaseDamage());
@@ -81,10 +80,10 @@ public class Pyromancer extends Hero {
     public void attack(Wizard wiz, TerrainList terrain) {
         a1.setRaceAmplifier(0.95f);
         a2.setRaceAmplifier(0.95f);
+        this.setTerrainAmplifier(terrain);
 
+        wiz.setPrevHP();
         wiz.decreaseHP(a1.getBaseDamage());
-        wiz.setOvertimeDamage(a1.getOvertimeDamage());
-        wiz.setTimeDamage(a1.getTimeDamage());
 
         wiz.unsetOvertimes();
         wiz.decreaseHP(a2.getBaseDamage());

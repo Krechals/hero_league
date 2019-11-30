@@ -34,6 +34,9 @@ public class GameMap {
             }
         }
     }
+    public TerrainList getTerrain(int x, int y) {
+        return mapTerrain.get(x).get(y);
+    }
     public static GameMap getInstance(List<String> mapString) {
         if (instance == null) {
             instance = new GameMap(mapString);
@@ -60,7 +63,13 @@ public class GameMap {
         if (mapPlayer1.get(x).get(y) == null) {
             mapPlayer1.get(x).set(y, h);
         } else if (mapPlayer2.get(x).get(y) == null) {
-            mapPlayer2.get(x).set(y, h);
+            if (mapPlayer1.get(x).get(y).getInitial() == 'W') {
+                Hero tmp = mapPlayer1.get(x).get(y);
+                mapPlayer2.get(x).set(y, tmp);
+                mapPlayer1.get(x).set(y, h);
+            } else {
+                mapPlayer2.get(x).set(y, h);
+            }
         }
     }
 }

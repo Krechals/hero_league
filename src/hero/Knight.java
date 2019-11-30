@@ -14,19 +14,22 @@ public class Knight extends Hero {
     }
     @Override
     public void isAttackedBy(Hero hero, TerrainList terrain) {
-        if (terrain == TerrainList.LAND) {
-            hero.a1.setTerrainAmplifier(1.15f);
-            hero.a2.setTerrainAmplifier(1.15f);
-        } else {
-            hero.a1.setTerrainAmplifier(1f);
-            hero.a2.setTerrainAmplifier(1f);
-        }
         hero.attack(this, terrain);
+    }
+    private void setTerrainAmplifier(TerrainList terrain) {
+        if (terrain == TerrainList.LAND) {
+            a1.setTerrainAmplifier(1.15f);
+            a2.setTerrainAmplifier(1.15f);
+        } else {
+            a1.setTerrainAmplifier(1f);
+            a2.setTerrainAmplifier(1f);
+        }
     }
     @Override
     public void attack(Knight knight, TerrainList terrain) {
         a1.setRaceAmplifier(1f);
         a2.setRaceAmplifier(1.20f);
+        this.setTerrainAmplifier(terrain);
 
         knight.decreaseHP(a1.getBaseDamage(knight));
 
@@ -42,6 +45,7 @@ public class Knight extends Hero {
     public void attack(Pyromancer pyro, TerrainList terrain) {
         a1.setRaceAmplifier(1.10f);
         a2.setRaceAmplifier(0.90f);
+        this.setTerrainAmplifier(terrain);
 
         pyro.decreaseHP(a1.getBaseDamage(pyro));
 
@@ -57,6 +61,7 @@ public class Knight extends Hero {
     public void attack(Rogue rogue, TerrainList terrain) {
         a1.setRaceAmplifier(1.15f);
         a2.setRaceAmplifier(0.80f);
+        this.setTerrainAmplifier(terrain);
 
         rogue.decreaseHP(a1.getBaseDamage(rogue));
 
@@ -72,7 +77,9 @@ public class Knight extends Hero {
     public void attack(Wizard wiz, TerrainList terrain) {
         a1.setRaceAmplifier(0.80f);
         a2.setRaceAmplifier(1.05f);
+        this.setTerrainAmplifier(terrain);
 
+        wiz.setPrevHP();
         wiz.decreaseHP(a1.getBaseDamage(wiz));
 
         wiz.unsetOvertimes();
