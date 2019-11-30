@@ -1,12 +1,21 @@
 package ability;
 
-public class Execute extends Ability{
-    private int baseDamage;
-    private int bonusDamage;
+import hero.Hero;
 
+public class Execute extends Ability{
+    private float limitHp;
+    private float bonusLimit;
     public Execute() {
         super();
-        baseDamage = 200;
+        damage = 200;
         bonusDamage = 30;
+        limitHp = 0.2f;
+        bonusLimit = 0.21f;
+    }
+    public int getBaseDamage(Hero h) {
+        if (Math.round(h.getFullHp() * limitHp) >= h.getHP()) {
+            return h.getHP();
+        }
+        return Math.round(damage * terrainAmplifier * raceAmplifier);
     }
 }

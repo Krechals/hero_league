@@ -32,6 +32,11 @@ public class Pyromancer extends Hero {
         knight.setOvertimeDamage(a1.getOvertimeDamage());
         knight.setTimeDamage(a2.getTimeDamage());
 
+        knight.unsetOvertimes();
+        knight.decreaseHP(a2.getBaseDamage());
+        knight.setOvertimeDamage(a2.getOvertimeDamage());
+        knight.setTimeDamage(a2.getTimeDamage());
+
         if (knight.getHP() <= 0) {
             knight.killPlayer();
         }
@@ -43,6 +48,11 @@ public class Pyromancer extends Hero {
 
         pyro.decreaseHP(a1.getBaseDamage());
         pyro.setOvertimeDamage(a1.getOvertimeDamage());
+        pyro.setTimeDamage(a1.getTimeDamage());
+
+        pyro.unsetOvertimes();
+        pyro.decreaseHP(a2.getBaseDamage());
+        pyro.setOvertimeDamage(a2.getOvertimeDamage());
         pyro.setTimeDamage(a2.getTimeDamage());
 
         if (pyro.getHP() <= 0) {
@@ -56,6 +66,11 @@ public class Pyromancer extends Hero {
 
         rogue.decreaseHP(a1.getBaseDamage());
         rogue.setOvertimeDamage(a1.getOvertimeDamage());
+        rogue.setTimeDamage(a1.getTimeDamage());
+
+        rogue.unsetOvertimes();
+        rogue.decreaseHP(a2.getBaseDamage());
+        rogue.setOvertimeDamage(a2.getOvertimeDamage());
         rogue.setTimeDamage(a2.getTimeDamage());
 
         if (rogue.getHP() <= 0) {
@@ -69,6 +84,11 @@ public class Pyromancer extends Hero {
 
         wiz.decreaseHP(a1.getBaseDamage());
         wiz.setOvertimeDamage(a1.getOvertimeDamage());
+        wiz.setTimeDamage(a1.getTimeDamage());
+
+        wiz.unsetOvertimes();
+        wiz.decreaseHP(a2.getBaseDamage());
+        wiz.setOvertimeDamage(a2.getOvertimeDamage());
         wiz.setTimeDamage(a2.getTimeDamage());
 
         if (wiz.getHP() <= 0) {

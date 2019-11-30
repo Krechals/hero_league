@@ -23,6 +23,7 @@ public class GameProgress {
             for (Hero currentHero : heros) {
                 // Remove heros previous location on map
                 map.setHeroOnMap(null, currentHero.getxLocation(), currentHero.getyLocation());
+
             }
             for (int heroID = 0; heroID < noHeros; ++heroID) {
                 Hero currentHero = heros.get(heroID);
@@ -30,21 +31,22 @@ public class GameProgress {
                 // Update heros current location on map
                 char operation = gameInput.getPlayersMoves().get(round).charAt(heroID);
                 if (heros.get(heroID).isAlive()) {
-                    heros.get(heroID).move(operation);
+                    if (!heros.get(heroID).isParalized()) {
+                        heros.get(heroID).move(operation);
+                    }
                     map.setHeroOnMap(currentHero, currentHero.getxLocation(), currentHero.getyLocation());
-                    // System.out.println(map.getMapPlayer1().get(0).get(0));
                 }
             }
-
+            // Give overtime damage
+            for (Hero h : heros) {
+                h.overtimeDamage();
+                h.decreaseParalizedTime();
+            }
             // Attacks
             int lines = gameInput.getLineSize();
             int columns = gameInput.getColumnSize();
             for (int i = 0; i < lines; ++i) {
                 for (int j = 0; j < columns; ++j) {
-                    // Give overtime damage
-                    for (Hero h : heros) {
-                        h.overtimeDamage();
-                    }
                     // Check if there are 2 players on a terrain
                     if (areHerosOnTerrain(map, i, j)) {
                         Hero h1 = map.getMapPlayer1().get(i).get(j);
@@ -52,8 +54,15 @@ public class GameProgress {
                         TerrainList terrainType = map.getMapTerrain().get(i).get(j);
                         h1.isAttackedBy(h2, terrainType);
                         h2.isAttackedBy(h1, terrainType);
-                    }
 
+                        // Update xp if we have a winner
+                        if (!h2.isAlive()) {
+                            h1.setXP(h2.getLevel());
+                        }
+                        if (!h1.isAlive()) {
+                            h2.setXP(h1.getLevel());
+                        }
+                    }
                 }
             }
 

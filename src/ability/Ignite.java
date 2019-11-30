@@ -12,16 +12,5 @@ public class Ignite extends Ability{
         overtimeBonus = 30;
         timeDamage = 2;
     }
-    public void updateDamage(int level) {
-        damage += level * bonusDamage;
-        overtimeDamage += level * overtimeBonus;
-    }
-    public void setTerrainAmplifier(TerrainList terrain) {
-        if (terrain == TerrainList.VOLCANIC) {
-            terrainAmplifier = 1.25f;
-        } else {
-            terrainAmplifier = 1;
-        }
-    }
 
 }

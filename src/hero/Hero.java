@@ -5,6 +5,7 @@ import map.TerrainList;
 
 public abstract class Hero {
     private int id;
+    private int fullHp;
     private int hp;
     private int bonusHp;
     private int xp;
@@ -15,6 +16,7 @@ public abstract class Hero {
     private int overtimeDamaged;
     private int timeDamage;
     private boolean isAlive;
+    private int paralizedRounds;
     protected char initial;
     Ability a1;
     Ability a2;
@@ -23,6 +25,7 @@ public abstract class Hero {
         boolean isAlive = true;
         this.id = id;
         this.hp = hp;
+        this.fullHp = hp;
         this.bonusHp = bonusHp;
         this.xp = 0;
         this.level = 0;
@@ -92,7 +95,37 @@ public abstract class Hero {
     public void killPlayer() {
         isAlive = false;
     }
-
+    public int getFullHp() {
+        return fullHp;
+    }
+    public boolean isParalized() {
+        return paralizedRounds > 0;
+    }
+    public void decreaseParalizedTime() {
+        if (paralizedRounds > 0) {
+            --paralizedRounds;
+        }
+    }
+    public void setParalizedRounds(int rounds) {
+        paralizedRounds = rounds;
+    }
+    public void updateLevel() {
+        int newLevel = (xp - 250) / 50;
+        if (newLevel > level) {
+            level = newLevel;
+            a1.updateSkill(level);
+            a2.updateSkill(level);
+        }
+    }
+    public void setXP(int looserLevel) {
+        xp = xp + Math.max(0, 200 - (level - looserLevel) * 40);
+        this.updateLevel();
+    }
+    public void unsetOvertimes() {
+        paralizedRounds = 0;
+        overtimeDamaged = 0;
+        timeDamage = 0;
+    }
     public abstract void isAttackedBy(Hero hero, TerrainList terrain);
     abstract void attack(Knight knight, TerrainList terrain);
     abstract void attack(Pyromancer pyro, TerrainList terrain);
