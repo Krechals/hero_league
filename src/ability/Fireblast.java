@@ -1,12 +1,12 @@
 package ability;
 
-import map.TerrainList;
+import common.Constants;
 
-public class Fireblast extends Ability{
+class Fireblast extends DamageAbility {
 
-    public Fireblast() {
+    Fireblast() {
         super();
-        damage = 350;
-        bonusDamage = 50;
+        damage = Constants.FIREBLAST_DAMAGE;
+        bonusDamage = Constants.FIREBLAST_BONUS_DAMAGE;
     }
 }

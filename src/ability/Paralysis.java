@@ -1,20 +1,23 @@
 package ability;
 
+import common.Constants;
+import hero.Hero;
 import map.TerrainList;
 
-public class Paralysis extends Ability {
+public class Paralysis extends OvertimeAbility {
 
     public Paralysis() {
         super();
-        damage = 40;
-        bonusDamage = 10;
-        overtimeDamage = 40;
-        overtimeBonus = 10;
-        paralizedRounds = 3;
+        damage = Constants.PARALYSIS_DAMAGE;
+        bonusDamage = Constants.PARALYSIS_BONUS_DAMAGE;
+        overtimeDamage = Constants.PARALYSIS_OVERTIME_DAMAGE;
+        overtimeBonus = Constants.PARALYSIS_BONUS_OVERTIME;
+        paralizedRounds = Constants.PARALYSIS_ROUNDS_OVERTIME;
     }
-    public int getParalizedRounds(TerrainList terrain) {
-        if (terrain == TerrainList.WOODS) {
-            return paralizedRounds + 3;
+    @Override
+    public final int getParalizedRounds(final Hero h) {
+        if (h.getTerrain() == TerrainList.WOODS) {
+            return Constants.PARALYSIS_BONUS_ROUNDS_OVERTIME;
         }
         return paralizedRounds;
     }

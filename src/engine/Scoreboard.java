@@ -6,9 +6,11 @@ import fileio.FileSystem;
 
 import java.util.List;
 
-public class Scoreboard {
-
-    public static void print(String mInputPath, String mOutputPath) {
+public final class Scoreboard {
+    private Scoreboard() {
+        // NOT CALLED
+    }
+    public static void print(final String mInputPath, final String mOutputPath) {
         List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
         try {
             FileSystem fs = new FileSystem(mInputPath, mOutputPath);
@@ -16,13 +18,12 @@ public class Scoreboard {
 
                 fs.writeWord(h.getInitial() + " ");
                 if (h.isAlive()) {
-                    fs.writeWord(h.getLevel() + " " + h.getXP() + " " + h.getHP() + " " + h.getxLocation() + " " + h.getyLocation());
+                    fs.writeWord(h.getLevel() + " " + h.getXP() + " " + h.getHP()
+                                    + " " + h.getxLocation() + " " + h.getyLocation());
                     fs.writeNewLine();
-                    // System.out.println(h.getLevel() + " " + h.getXP() + " " + h.getHP() + " " + h.getxLocation() + " " + h.getyLocation());
                 } else {
                     fs.writeWord("dead");
                     fs.writeNewLine();
-                    // System.out.println("DEAD");
                 }
             }
             fs.close();

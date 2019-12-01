@@ -3,16 +3,19 @@ package engine;
 import hero.Hero;
 import main.GameInput;
 import map.GameMap;
-import map.TerrainList;
 import setup.SingletonHeroList;
 
 import java.util.List;
 
-public class GameProgress {
-    private static boolean areHerosOnTerrain(GameMap map, int x, int y) {
-        return map.getMapPlayer1().get(x).get(y) != null && map.getMapPlayer2().get(x).get(y) != null;
+public final class GameProgress {
+    private GameProgress() {
+        // NOT CALLED
     }
-    public static void play(GameInput gameInput) {
+    private static boolean areHerosOnTerrain(final GameMap map, final int x, final int y) {
+        return map.getMapPlayer1().get(x).get(y)
+                != null && map.getMapPlayer2().get(x).get(y) != null;
+    }
+    public static void play(final GameInput gameInput) {
         int noHeros = gameInput.getPlayersNumber();
         int noRounds = gameInput.getRounds();
         List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
@@ -38,8 +41,10 @@ public class GameProgress {
                         heros.get(heroID).move(operation);
                     }
                     heros.get(heroID).decreaseParalizedTime();
-                    map.setHeroOnMap(currentHero, currentHero.getxLocation(), currentHero.getyLocation());
-                    heros.get(heroID).setTerrain(map.getTerrain(currentHero.getxLocation(), currentHero.getyLocation()));
+                    map.setHeroOnMap(currentHero, currentHero.getxLocation(),
+                                    currentHero.getyLocation());
+                    heros.get(heroID).setTerrain(map.getTerrain(currentHero.getxLocation(),
+                                    currentHero.getyLocation()));
                 }
             }
             // Attacks
@@ -52,11 +57,8 @@ public class GameProgress {
                         Hero h1 = map.getMapPlayer1().get(i).get(j);
                         Hero h2 = map.getMapPlayer2().get(i).get(j);
 
-                        TerrainList terrainType = map.getMapTerrain().get(i).get(j);
-                        h2.isAttackedBy(h1, terrainType);
-                        h1.isAttackedBy(h2, terrainType);
-
-                        System.out.println(h1.getHP() + " " + h2.getHP());
+                        h2.isAttackedBy(h1);
+                        h1.isAttackedBy(h2);
 
                         // Update xp if we have a winner
                         if (!h2.isAlive()) {

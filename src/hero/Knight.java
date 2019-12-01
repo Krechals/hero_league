@@ -1,93 +1,72 @@
 package hero;
 
-import ability.Ability;
-import ability.Execute;
-import ability.Slam;
+import ability.AbilityFactory;
+import ability.AbilityList;
+import common.Constants;
 import map.TerrainList;
 
 public class Knight extends Hero {
-    public Knight(int id, int x, int y) {
-        super(id, 900,80, x, y);
+    public Knight(final int x, final int y) {
+        super(Constants.KNIGHT_HP, Constants.KNIGHT_BONUS_HP, x, y);
         initial = 'K';
-        a1 = new Execute();
-        a2 = new Slam();
+        a1 = AbilityFactory.getInstance().createAbility(AbilityList.EXECUTE);
+        a2 = AbilityFactory.getInstance().createAbility(AbilityList.SLAM);
     }
     @Override
-    public void isAttackedBy(Hero hero, TerrainList terrain) {
-        hero.attack(this, terrain);
+    public final void isAttackedBy(final Hero hero) {
+        hero.attack(this);
     }
-    private void setTerrainAmplifier(TerrainList terrain) {
+    private void setTerrainAmplifier(final TerrainList terrain) {
         if (terrain == TerrainList.LAND) {
-            a1.setTerrainAmplifier(1.15f);
-            a2.setTerrainAmplifier(1.15f);
+            a1.setTerrainAmplifier(Constants.KNIGHT_LAND_AMPLIFIER);
+            a2.setTerrainAmplifier(Constants.KNIGHT_LAND_AMPLIFIER);
         } else {
-            a1.setTerrainAmplifier(1f);
-            a2.setTerrainAmplifier(1f);
+            a1.setTerrainAmplifier(Constants.NO_APLIFICATION);
+            a2.setTerrainAmplifier(Constants.NO_APLIFICATION);
+        }
+    }
+    private void attackHero(final Hero h) {
+        h.decreaseHP(a1.getBaseDamage(h));
+
+        h.unsetOvertimes();
+        h.decreaseHP(a2.getBaseDamage(h));
+        h.setParalizedRounds(a2.getParalizedRounds(h));
+
+        if (h.getHP() <= 0) {
+            h.killPlayer();
         }
     }
     @Override
-    public void attack(Knight knight, TerrainList terrain) {
-        a1.setRaceAmplifier(1f);
-        a2.setRaceAmplifier(1.20f);
-        this.setTerrainAmplifier(terrain);
+    public final void attack(final Knight knight) {
+        a1.setRaceAmplifier(Constants.NO_APLIFICATION);
+        a2.setRaceAmplifier(Constants.KNIGHT_ATTACKS_KNIGHT_AMPLIFIER_2);
+        this.setTerrainAmplifier(knight.getTerrain());
 
-        knight.decreaseHP(a1.getBaseDamage(knight));
-
-        knight.unsetOvertimes();
-        knight.decreaseHP(a2.getBaseDamage());
-        knight.setParalizedRounds(a2.getParalizedRounds());
-
-        if (knight.getHP() <= 0) {
-            knight.killPlayer();
-        }
+        attackHero(knight);
     }
     @Override
-    public void attack(Pyromancer pyro, TerrainList terrain) {
-        a1.setRaceAmplifier(1.10f);
-        a2.setRaceAmplifier(0.90f);
-        this.setTerrainAmplifier(terrain);
+    public final void attack(final Pyromancer pyro) {
+        a1.setRaceAmplifier(Constants.KNIGHT_ATTACKS_PYRO_AMPLIFIER_1);
+        a2.setRaceAmplifier(Constants.KNIGHT_ATTACKS_PYRO_AMPLIFIER_2);
+        this.setTerrainAmplifier(pyro.getTerrain());
 
-        pyro.decreaseHP(a1.getBaseDamage(pyro));
-
-        pyro.unsetOvertimes();
-        pyro.decreaseHP(a2.getBaseDamage());
-        pyro.setParalizedRounds(a2.getParalizedRounds());
-
-        if (pyro.getHP() <= 0) {
-            pyro.killPlayer();
-        }
+        attackHero(pyro);
     }
     @Override
-    public void attack(Rogue rogue, TerrainList terrain) {
-        a1.setRaceAmplifier(1.15f);
-        a2.setRaceAmplifier(0.80f);
-        this.setTerrainAmplifier(terrain);
+    public final void attack(final Rogue rogue) {
+        a1.setRaceAmplifier(Constants.KNIGHT_ATTACKS_ROGUE_AMPLIFIER_1);
+        a2.setRaceAmplifier(Constants.KNIGHT_ATTACKS_ROGUE_AMPLIFIER_2);
+        this.setTerrainAmplifier(rogue.getTerrain());
 
-        rogue.decreaseHP(a1.getBaseDamage(rogue));
-
-        rogue.unsetOvertimes();
-        rogue.decreaseHP(a2.getBaseDamage());
-        rogue.setParalizedRounds(a2.getParalizedRounds());
-
-        if (rogue.getHP() <= 0) {
-            rogue.killPlayer();
-        }
+        attackHero(rogue);
     }
     @Override
-    public void attack(Wizard wiz, TerrainList terrain) {
-        a1.setRaceAmplifier(0.80f);
-        a2.setRaceAmplifier(1.05f);
-        this.setTerrainAmplifier(terrain);
+    public final void attack(final Wizard wiz) {
+        a1.setRaceAmplifier(Constants.KNIGHT_ATTACKS_WIZ_AMPLIFIER_1);
+        a2.setRaceAmplifier(Constants.KNIGHT_ATTACKS_WIZ_AMPLIFIER_2);
+        this.setTerrainAmplifier(wiz.getTerrain());
 
         wiz.setPrevHP();
-        wiz.decreaseHP(a1.getBaseDamage(wiz));
-
-        wiz.unsetOvertimes();
-        wiz.decreaseHP(a2.getBaseDamage());
-        wiz.setParalizedRounds(a2.getParalizedRounds());
-
-        if (wiz.getHP() <= 0) {
-            wiz.killPlayer();
-        }
+        attackHero(wiz);
     }
 }

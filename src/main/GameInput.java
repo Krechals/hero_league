@@ -13,63 +13,103 @@ public class GameInput {
     private int mRounds;
 
     public GameInput() {
-        mTerrain = mPlayersType = mPlayersMoves= null;
+        mTerrain = null;
+        mPlayersType = null;
+        mPlayersMoves = null;
         mPlayersLocation =  null;
-        mRounds = mLineSize = mColumnSize = mPlayersNumber = -1;
+        mRounds = -1;
+        mLineSize = -1;
+        mColumnSize = -1;
+        mPlayersNumber = -1;
     }
+    protected GameInput(final Builder builder) {
+        mLineSize = builder.mLinesBuilder;
+        mColumnSize = builder.mColumnsBuilder;
+        mTerrain = builder.mTerrainBuilder;
+        mPlayersNumber = builder.mPlayerNumberBuilder;
+        mPlayersType = builder.mPlayersTypeBuilder;
+        mPlayersLocation = builder.mPlayersLocationBuilder;
+        mRounds = builder.mRoundsBuilder;
+        mPlayersMoves = builder.mPlayerMovesBuilder;
 
-    public GameInput(final int N, final int M, final List<String> terrain,
-                     final int playersNumber, final List<String> playersType,
-                     final List<Integer> playersLocation, final int rounds,
-                     final List<String> playerMoves) {
-        mLineSize = N;
-        mColumnSize = M;
-        mTerrain = terrain;
-        mPlayersNumber = playersNumber;
-        mPlayersType = playersType;
-        mPlayersLocation = playersLocation;
-        mRounds = rounds;
-        mPlayersMoves = playerMoves;
     }
+    public static class Builder {
 
-    public List<String> getPlayersType() {
+        private int mLinesBuilder;
+        private int mColumnsBuilder;
+        private List<String> mTerrainBuilder;
+        private int mPlayerNumberBuilder;
+        private List<String> mPlayersTypeBuilder;
+        private List<Integer> mPlayersLocationBuilder;
+        private int mRoundsBuilder;
+        private List<String> mPlayerMovesBuilder;
+
+        public final GameInput build() {
+            return new GameInput(this);
+        }
+        public final Builder setLines(final int lines) {
+            mLinesBuilder = lines;
+            return this;
+        }
+        public final Builder setColumns(final int columns) {
+            mColumnsBuilder = columns;
+            return this;
+        }
+        public final Builder setTerrain(final List<String> terrain) {
+            mTerrainBuilder = terrain;
+            return this;
+        }
+        public final Builder setPlayerNumber(final int playerNumber) {
+            mPlayerNumberBuilder = playerNumber;
+            return this;
+        }
+        public final Builder setPlayersType(final List<String> playersType) {
+            mPlayersTypeBuilder = playersType;
+            return this;
+        }
+        public final Builder setPlayersLocatiomn(final List<Integer> playersLocation) {
+            mPlayersLocationBuilder = playersLocation;
+            return this;
+        }
+        public final Builder setRounds(final int rounds) {
+            mRoundsBuilder = rounds;
+            return this;
+        }
+        public final Builder setPlayerMoves(final List<String> playerMoves) {
+            mPlayerMovesBuilder = playerMoves;
+            return this;
+        }
+
+    }
+    public final List<String> getPlayersType() {
         return mPlayersType;
     }
 
-    public List<Integer> getPlayersLocation() {
+    public final List<Integer> getPlayersLocation() {
         return mPlayersLocation;
     }
 
-    public List<String> getPlayersMoves() {
+    public final List<String> getPlayersMoves() {
         return mPlayersMoves;
     }
 
-    public int getLineSize() {
+    public final int getLineSize() {
         return mLineSize;
     }
 
-    public int getColumnSize() {
+    public final int getColumnSize() {
         return mColumnSize;
     }
 
-    public int getPlayersNumber() {
+    public final int getPlayersNumber() {
         return mPlayersNumber;
     }
 
-    public List<String> getTerrain() {
+    public final List<String> getTerrain() {
         return mTerrain;
     }
 
     public final int getRounds() {
         return mRounds;
-    }
-
-    public final boolean isValidInput() {
-        boolean membersInstantiated1 = mTerrain != null && mPlayersType != null;
-        boolean membersInstantiated2 = mPlayersLocation != null && mPlayersMoves != null;
-        boolean membersNotEmpty1 = mTerrain.size() > 0 && mPlayersType.size() > 0;
-        boolean membersNotEmpty2 = mPlayersLocation.size() > 0 && mPlayersMoves.size() > 0;
-
-        return membersInstantiated1 && membersInstantiated2 && membersNotEmpty1 && membersNotEmpty2;
     }
 }

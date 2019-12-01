@@ -5,7 +5,7 @@ import hero.Hero;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingletonHeroList {
+public final class SingletonHeroList {
     private static SingletonHeroList instance;
     private List<Hero> heros;
 
@@ -19,7 +19,7 @@ public class SingletonHeroList {
         }
         return instance;
     }
-    public void addHero(Hero h) {
+    void addHero(final Hero h) {
         heros.add(h);
     }
     public List<Hero> getHeroes() {

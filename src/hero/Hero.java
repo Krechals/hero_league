@@ -1,12 +1,10 @@
 package hero;
 
 import ability.Ability;
+import common.Constants;
 import map.TerrainList;
 
-import java.time.chrono.ThaiBuddhistEra;
-
 public abstract class Hero {
-    private int id;
     private int fullHp;
     private int hp;
     private int bonusHp;
@@ -14,7 +12,6 @@ public abstract class Hero {
     private int level;
     private int xLocation;
     private int yLocation;
-    private int freezeTime;
     private int overtimeDamaged;
     private int timeDamage;
     private boolean isAlive;
@@ -24,9 +21,7 @@ public abstract class Hero {
     protected Ability a2;
     private TerrainList terrain;
 
-    public Hero(int id, int hp, int bonusHp, int x, int y) {
-        boolean isAlive = true;
-        this.id = id;
+    public Hero(final int hp, final int bonusHp, final int x, final int y) {
         this.hp = hp;
         this.fullHp = hp;
         this.bonusHp = bonusHp;
@@ -34,14 +29,13 @@ public abstract class Hero {
         this.level = 0;
         this.xLocation = x;
         this.yLocation = y;
-        this.freezeTime = 0;
         this.overtimeDamaged = 0;
         this.timeDamage = 0;
         this.isAlive = true;
         this.terrain = null;
     }
-    public void move(char operation) {
-        switch(operation) {
+    public final void move(final char operation) {
+        switch (operation) {
             case 'U':
                 --xLocation;
                 break;
@@ -54,37 +48,40 @@ public abstract class Hero {
             case 'R':
                 ++yLocation;
                 break;
+            default:
+                return;
         }
     }
-    public int getId() {
-        return id;
-    }
+
+    /**
+     * @return
+     */
     public int getPrevHP() {
         // implemented in subclass
         return 0;
     }
-    public Ability getAbility1() {
+    public final Ability getAbility1() {
         return a1;
     }
-    public Ability getAbility2() {
+    public final Ability getAbility2() {
         return a2;
     }
-    public int getxLocation() {
+    public final int getxLocation() {
         return xLocation;
     }
-    public int getyLocation() {
+    public final int getyLocation() {
         return yLocation;
     }
-    public void decreaseHP(int hp) {
-        this.hp -= hp;
+    final void decreaseHP(final int damage) {
+        this.hp -= damage;
     }
-    public void setOvertimeDamage(int damage) {
+    final void setOvertimeDamage(final int damage) {
         overtimeDamaged = damage;
     }
-    public void setTimeDamage(int time) {
+    final void setTimeDamage(final int time) {
         timeDamage = time;
     }
-    public void overtimeDamage() {
+    public final void overtimeDamage() {
         if (timeDamage > 0) {
             --timeDamage;
             hp -= overtimeDamaged;
@@ -93,46 +90,46 @@ public abstract class Hero {
             }
         }
     }
-    public void setTerrain(TerrainList mapTerrain) {
+    public final void setTerrain(final TerrainList mapTerrain) {
         terrain = mapTerrain;
     }
-    public TerrainList getTerrain() {
+    public final TerrainList getTerrain() {
         return terrain;
     }
-    public int getHP() {
+    public final int getHP() {
         return hp;
     }
-    public char getInitial() {
+    public final char getInitial() {
         return initial;
     }
-    public int getLevel() {
+    public final int getLevel() {
         return level;
     }
-    public int getXP() {
+    public final int getXP() {
         return xp;
     }
-    public boolean isAlive() {
+    public final boolean isAlive() {
         return this.isAlive;
     }
-    public void killPlayer() {
+    final void killPlayer() {
         isAlive = false;
     }
-    public int getFullHp() {
+    public final int getFullHp() {
         return fullHp;
     }
-    public boolean isParalized() {
+    public final boolean isParalized() {
         return paralizedRounds > 0;
     }
-    public void decreaseParalizedTime() {
+    public final void decreaseParalizedTime() {
         if (paralizedRounds > 0) {
             --paralizedRounds;
         }
     }
-    public void setParalizedRounds(int rounds) {
+    final void setParalizedRounds(final int rounds) {
         paralizedRounds = rounds;
     }
-    public void updateLevel() {
-        int newLevel = (xp - 200) / 50;
+    private void updateLevel() {
+        int newLevel = (xp - Constants.HERO_FIRST_LEVEL) / Constants.HERO_LEVEL_UP;
         if (newLevel > level) {
             level = newLevel;
             fullHp = fullHp + newLevel * bonusHp;
@@ -141,18 +138,19 @@ public abstract class Hero {
             a2.updateSkill(level);
         }
     }
-    public void setXP(int looserLevel) {
-        xp = xp + Math.max(0, 200 - (level - looserLevel) * 40);
+    public final void setXP(final int looserLevel) {
+        xp = xp + Math.max(0, Constants.HERO_XP_FORMULA - (level - looserLevel)
+                * Constants.HERO_XP_MULTIPLIER);
         this.updateLevel();
     }
-    public void unsetOvertimes() {
+    final void unsetOvertimes() {
         paralizedRounds = 0;
         overtimeDamaged = 0;
         timeDamage = 0;
     }
-    public abstract void isAttackedBy(Hero hero, TerrainList terrain);
-    abstract void attack(Knight knight, TerrainList terrain);
-    abstract void attack(Pyromancer pyro, TerrainList terrain);
-    abstract void attack(Rogue rogue, TerrainList terrain);
-    abstract void attack(Wizard wiz, TerrainList terrain);
+    public abstract void isAttackedBy(Hero hero);
+    abstract void attack(Knight knight);
+    abstract void attack(Pyromancer pyro);
+    abstract void attack(Rogue rogue);
+    abstract void attack(Wizard wiz);
 }

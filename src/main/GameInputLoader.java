@@ -52,7 +52,15 @@ public final class GameInputLoader {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-
-        return new GameInput(lines, columns, terrain, noPlayers, playesrType, playersLocation, noRounds, moves);
+        return new GameInput.Builder()
+                    .setLines(lines)
+                    .setColumns(columns)
+                    .setTerrain(terrain)
+                    .setPlayerNumber(noPlayers)
+                    .setPlayersType(playesrType)
+                    .setPlayersLocatiomn(playersLocation)
+                    .setRounds(noRounds)
+                    .setPlayerMoves(moves)
+                    .build();
     }
 }

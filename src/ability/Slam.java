@@ -1,11 +1,14 @@
 package ability;
 
-public class Slam extends Ability {
+import common.Constants;
+
+public class Slam extends OvertimeAbility {
 
     public Slam() {
         super();
-        damage = 100;
-        bonusDamage = 40;
-        paralizedRounds = 1;
+        damage = Constants.SLAM_DAMAGE;
+        bonusDamage = Constants.SLAM_BONUS_DAMAGE;
+        paralizedRounds = Constants.SLAM_ROUNDS_OVERTIME;
     }
+
 }

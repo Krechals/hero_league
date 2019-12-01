@@ -1,21 +1,30 @@
 package setup;
 
-import hero.*;
+import common.Constants;
+import hero.Hero;
+import hero.Knight;
+import hero.Pyromancer;
+import hero.Rogue;
+import hero.Wizard;
 
-public class HeroFactory {
-    public static final HeroFactory INSTANCE = new HeroFactory();
+final class HeroFactory {
+    static final HeroFactory INSTANCE = new HeroFactory();
 
-    private HeroFactory() { }
+    private HeroFactory() {
+        // NOT CALLED
+    }
 
     // Factory Design Pattern
-    public Hero createHero(String type, int id, int x, int y) {
-        if (type.equals("K")) {
-            return new Knight(id, x, y);
-        } else if (type.equals("P")) {
-            return new Pyromancer(id, x ,y);
-        } else if (type.equals("R")) {
-            return new Rogue(id, x, y);
+    Hero createHero(final String type, final int x, final int y) {
+        switch (type) {
+            case Constants.KNIGHT_INITIAL:
+                return new Knight(x, y);
+            case Constants.PYRO_INITIAL:
+                return new Pyromancer(x, y);
+            case Constants.ROGUE_INITIAL:
+                return new Rogue(x, y);
+            default:
+                return new Wizard(x, y);
         }
-        return new Wizard(id, x, y);
     }
 }

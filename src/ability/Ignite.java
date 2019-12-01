@@ -1,16 +1,16 @@
 package ability;
 
-import map.TerrainList;
+import common.Constants;
 
-public class Ignite extends Ability{
+class Ignite extends OvertimeAbility {
 
-    public Ignite() {
+    Ignite() {
         super();
-        damage = 150;
-        bonusDamage = 20;
-        overtimeDamage = 50;
-        overtimeBonus = 30;
-        timeDamage = 2;
+        damage = Constants.IGNITE_DAMAGE;
+        bonusDamage = Constants.IGNITE_BONUS_DAMAGE;
+        overtimeDamage = Constants.IGNITE_OVERTIME_DAMAGE;
+        overtimeBonus = Constants.IGNITE_BONUS_OVERTIME;
+        timeDamage = Constants.IGNITE_ROUNDS_OVERTIME;
     }
 
 }

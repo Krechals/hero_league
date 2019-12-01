@@ -5,13 +5,16 @@ import hero.Hero;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameMap {
+public final class GameMap {
     private static GameMap instance;
-    List<List<TerrainList>> mapTerrain;
-    List<List<Hero>> mapPlayer1;
-    List<List<Hero>> mapPlayer2;
+    private List<List<TerrainList>> mapTerrain;
+    private List<List<Hero>> mapPlayer1;
+    private List<List<Hero>> mapPlayer2;
 
-    private GameMap(List<String> mapString) {
+    private GameMap() {
+        // NOT_CALLED
+    }
+    private GameMap(final List<String> mapString) {
         mapTerrain = new ArrayList<>();
         mapPlayer1 = new ArrayList<>();
         mapPlayer2 = new ArrayList<>();
@@ -34,17 +37,14 @@ public class GameMap {
             }
         }
     }
-    public TerrainList getTerrain(int x, int y) {
+    public TerrainList getTerrain(final int x, final int y) {
         return mapTerrain.get(x).get(y);
     }
-    public static GameMap getInstance(List<String> mapString) {
+    public static GameMap getInstance(final List<String> mapString) {
         if (instance == null) {
             instance = new GameMap(mapString);
         }
         return instance;
-    }
-    public List<List<TerrainList>> getMapTerrain() {
-        return mapTerrain;
     }
     public List<List<Hero>> getMapPlayer2() {
         return mapPlayer2;
@@ -52,7 +52,7 @@ public class GameMap {
     public List<List<Hero>> getMapPlayer1() {
         return mapPlayer1;
     }
-    public void setHeroOnMap(Hero h, int x, int y) {
+    public void setHeroOnMap(final Hero h, final int x, final int y) {
         // Erase map
         if (h == null) {
             mapPlayer1.get(x).set(y, null);
