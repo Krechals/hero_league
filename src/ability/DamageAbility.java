@@ -15,14 +15,16 @@ public class DamageAbility extends Ability {
     }
 
     /**
-     * @return
+     * Getter for the amplifier percent of current ability.
+     * @return Terrain amplifier percent of current ability
      */
     public float getTerrainAmplifier() {
         return terrainAmplifier;
     }
 
     /**
-     * @return
+     * Getter for the amplifier percent of current ability.
+     * @return Race amplifier percent of current ability
      */
     public float getRaceAmplifier() {
         return raceAmplifier;
@@ -38,8 +40,8 @@ public class DamageAbility extends Ability {
     }
 
     /**
-     * @param h
-     * @return
+     * @param h: Hero that receives Deflect from Wizard.
+     * @return Damage that the hero receives from Wizard by Deflect ability.
      */
     @Override
     public int noRaceModifiersDamage(final Hero h) {
@@ -47,8 +49,8 @@ public class DamageAbility extends Ability {
     }
 
     /**
-     * @param h
-     * @return
+     * @param h: Hero to be attacked.
+     * @return Damage of the current ability.
      */
     @Override
     public int getBaseDamage(final Hero h) {
@@ -56,9 +58,9 @@ public class DamageAbility extends Ability {
     }
 
     /**
-     * @param h
-     * @param wiz
-     * @return
+     * @param h: Hero to be attacked
+     * @param wiz: Wizard that Deflects damage
+     * @return Damage of the current ability.
      */
     @Override
     public int getBaseDamage(final Hero h, final Hero wiz) {
@@ -67,7 +69,8 @@ public class DamageAbility extends Ability {
     }
 
     /**
-     * @param level
+     * Updates current ability of a specific hero.
+     * @param level Level of the hero
      */
     @Override
     public void updateSkill(final int level) {

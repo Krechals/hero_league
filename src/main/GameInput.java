@@ -12,16 +12,6 @@ public class GameInput {
     private int mPlayersNumber;
     private int mRounds;
 
-    public GameInput() {
-        mTerrain = null;
-        mPlayersType = null;
-        mPlayersMoves = null;
-        mPlayersLocation =  null;
-        mRounds = -1;
-        mLineSize = -1;
-        mColumnSize = -1;
-        mPlayersNumber = -1;
-    }
     protected GameInput(final Builder builder) {
         mLineSize = builder.mLinesBuilder;
         mColumnSize = builder.mColumnsBuilder;
@@ -33,6 +23,7 @@ public class GameInput {
         mPlayersMoves = builder.mPlayerMovesBuilder;
 
     }
+    // Builder Strategy Pattern
     public static class Builder {
 
         private int mLinesBuilder;

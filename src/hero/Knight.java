@@ -12,10 +12,17 @@ public class Knight extends Hero {
         a1 = AbilityFactory.getInstance().createAbility(AbilityList.EXECUTE);
         a2 = AbilityFactory.getInstance().createAbility(AbilityList.SLAM);
     }
+
+    // Visitor accept method
     @Override
     public final void isAttackedBy(final Hero hero) {
         hero.attack(this);
     }
+
+    /**
+     * Set amplifiers for the hero that attacks.
+     * @param terrain: Terrain of the battle
+     */
     private void setTerrainAmplifier(final TerrainList terrain) {
         if (terrain == TerrainList.LAND) {
             a1.setTerrainAmplifier(Constants.KNIGHT_LAND_AMPLIFIER);
@@ -25,6 +32,11 @@ public class Knight extends Hero {
             a2.setTerrainAmplifier(Constants.NO_APLIFICATION);
         }
     }
+
+    /**
+     * Attack method that applies to all heros.
+     * @param h: Hero to be attacked
+     */
     private void attackHero(final Hero h) {
         h.decreaseHP(a1.getBaseDamage(h));
 
@@ -36,6 +48,10 @@ public class Knight extends Hero {
             h.killPlayer();
         }
     }
+    /**
+     * Knight attacks a Knight.
+     * @param knight: Knight to be attacked
+     */
     @Override
     public final void attack(final Knight knight) {
         a1.setRaceAmplifier(Constants.NO_APLIFICATION);
@@ -44,6 +60,10 @@ public class Knight extends Hero {
 
         attackHero(knight);
     }
+    /**
+     * Knight attacks a Pyromancer.
+     * @param pyro: Pyromancer to be attacked
+     */
     @Override
     public final void attack(final Pyromancer pyro) {
         a1.setRaceAmplifier(Constants.KNIGHT_ATTACKS_PYRO_AMPLIFIER_1);
@@ -52,6 +72,10 @@ public class Knight extends Hero {
 
         attackHero(pyro);
     }
+    /**
+     * Knight attacks a Rogue.
+     * @param rogue: Rogue to be attacked
+     */
     @Override
     public final void attack(final Rogue rogue) {
         a1.setRaceAmplifier(Constants.KNIGHT_ATTACKS_ROGUE_AMPLIFIER_1);
@@ -60,6 +84,11 @@ public class Knight extends Hero {
 
         attackHero(rogue);
     }
+
+    /**
+     * Knight attacks a Wizard.
+     * @param wiz: Wizard to be attacked
+     */
     @Override
     public final void attack(final Wizard wiz) {
         a1.setRaceAmplifier(Constants.KNIGHT_ATTACKS_WIZ_AMPLIFIER_1);

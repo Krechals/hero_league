@@ -14,8 +14,10 @@ public final class Main {
         GameInput gameInput = gameInputLoader.load();
         HeroSetup.setup(gameInput.getPlayersType(), gameInput.getPlayersLocation());
 
+        // Gameplay
         GameProgress.play(gameInput);
 
+        // Prints socreboard
         Scoreboard.print(args[0], args[1]);
     }
 }

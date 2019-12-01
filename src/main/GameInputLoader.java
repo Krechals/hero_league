@@ -14,6 +14,7 @@ public final class GameInputLoader {
         mOutputPath = outputPath;
     }
 
+    // Gets data from input with fileIO.jar
     public GameInput load() {
         List<String> terrain = new ArrayList<>();
         List<String> playesrType = new ArrayList<>();

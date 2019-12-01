@@ -8,6 +8,12 @@ public final class HeroSetup {
     private HeroSetup() {
         // NOT CALLED
     }
+
+    /**
+     * Hero creator class.
+     * @param playersType: String lists of heros in the game
+     * @param playersLocation: Hero's initial location on map
+     */
     public static void setup(final List<String> playersType,
                              final List<Integer> playersLocation) {
         SingletonHeroList instance = SingletonHeroList.getInstance();

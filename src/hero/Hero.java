@@ -34,6 +34,11 @@ public abstract class Hero {
         this.isAlive = true;
         this.terrain = null;
     }
+
+    /**
+     * Moves a player on the map.
+     * @param operation: Move direction (up, down, left, right)
+     */
     public final void move(final char operation) {
         switch (operation) {
             case 'U':
@@ -54,11 +59,22 @@ public abstract class Hero {
     }
 
     /**
-     * @return
+     * Implemented in Wizard class.
+     * @return Hero's HP before taking damage
      */
     public int getPrevHP() {
         // implemented in subclass
         return 0;
+    }
+
+    /**
+     * Gives XP to current hero when winning a round.
+     * @param looserLevel: Defended hero level
+     */
+    public final void setXP(final int looserLevel) {
+        xp = xp + Math.max(0, Constants.HERO_XP_FORMULA - (level - looserLevel)
+                * Constants.HERO_XP_MULTIPLIER);
+        this.updateLevel();
     }
     public final Ability getAbility1() {
         return a1;
@@ -128,6 +144,7 @@ public abstract class Hero {
     final void setParalizedRounds(final int rounds) {
         paralizedRounds = rounds;
     }
+    // Checks and updates Hero's level
     private void updateLevel() {
         int newLevel = (xp - Constants.HERO_FIRST_LEVEL) / Constants.HERO_LEVEL_UP;
         if (newLevel > level) {
@@ -138,16 +155,12 @@ public abstract class Hero {
             a2.updateSkill(level);
         }
     }
-    public final void setXP(final int looserLevel) {
-        xp = xp + Math.max(0, Constants.HERO_XP_FORMULA - (level - looserLevel)
-                * Constants.HERO_XP_MULTIPLIER);
-        this.updateLevel();
-    }
     final void unsetOvertimes() {
         paralizedRounds = 0;
         overtimeDamaged = 0;
         timeDamage = 0;
     }
+    // Visitor Design Pattern
     public abstract void isAttackedBy(Hero hero);
     abstract void attack(Knight knight);
     abstract void attack(Pyromancer pyro);

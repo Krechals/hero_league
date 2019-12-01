@@ -20,7 +20,7 @@ public final class GameProgress {
         int noRounds = gameInput.getRounds();
         List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
         GameMap map = GameMap.getInstance(gameInput.getTerrain());
-        // Moves
+
         for (int round = 0; round < noRounds; ++round) {
             // Moves
             for (Hero currentHero : heros) {
@@ -31,12 +31,15 @@ public final class GameProgress {
             for (Hero h : heros) {
                 h.overtimeDamage();
             }
+            // Update heros current location on map
             for (int heroID = 0; heroID < noHeros; ++heroID) {
                 Hero currentHero = heros.get(heroID);
 
-                // Update heros current location on map
+                // Check if current hero is alive
                 if (heros.get(heroID).isAlive()) {
                     char operation = gameInput.getPlayersMoves().get(round).charAt(heroID);
+
+                    // Check if current hero is paralysed
                     if (!heros.get(heroID).isParalized()) {
                         heros.get(heroID).move(operation);
                     }
