@@ -7,6 +7,9 @@ public class GameInput {
     private final List<String> mPlayersType;
     private final List<Integer> mPlayersLocation;
     private final List<String> mPlayersMoves;
+    private final List<String> mAngelType;
+    private final List<Integer> mAngelRound;
+    private final List<Integer> mAngelLocation;
     private int mLineSize;
     private int mColumnSize;
     private int mPlayersNumber;
@@ -21,6 +24,9 @@ public class GameInput {
         mPlayersLocation = builder.mPlayersLocationBuilder;
         mRounds = builder.mRoundsBuilder;
         mPlayersMoves = builder.mPlayerMovesBuilder;
+        mAngelType = builder.mAngelTypeBuilder;
+        mAngelRound = builder.mAngelRoundBuilder;
+        mAngelLocation = builder.mAngelLocationBuilder;
 
     }
     // Builder Strategy Pattern
@@ -34,6 +40,9 @@ public class GameInput {
         private List<Integer> mPlayersLocationBuilder;
         private int mRoundsBuilder;
         private List<String> mPlayerMovesBuilder;
+        private List<String> mAngelTypeBuilder;
+        private List<Integer> mAngelRoundBuilder;
+        private List<Integer> mAngelLocationBuilder;
 
         public final GameInput build() {
             return new GameInput(this);
@@ -70,6 +79,18 @@ public class GameInput {
             mPlayerMovesBuilder = playerMoves;
             return this;
         }
+        public final Builder setAngelType(final List<String> angelLocation) {
+            mAngelTypeBuilder = angelLocation;
+            return this;
+        }
+        public final Builder setAngelRound(final List<Integer> angelRound) {
+            mAngelRoundBuilder = angelRound;
+            return this;
+        }
+        public final Builder setAngelLocation(final List<Integer> angelLocation) {
+            mAngelLocationBuilder = angelLocation;
+            return this;
+        }
 
     }
     public final List<String> getPlayersType() {
@@ -82,6 +103,18 @@ public class GameInput {
 
     public final List<String> getPlayersMoves() {
         return mPlayersMoves;
+    }
+
+    public final List<String> getAngelType() {
+        return mAngelType;
+    }
+
+    public final List<Integer> getAngelRound() {
+        return mAngelRound;
+    }
+
+    public final List<Integer> getAngelLocation() {
+        return mAngelLocation;
     }
 
     public final int getLineSize() {

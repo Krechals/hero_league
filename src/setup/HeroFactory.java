@@ -15,16 +15,16 @@ final class HeroFactory {
     }
 
     // Factory Design Pattern
-    Hero createHero(final String type, final int x, final int y) {
+    Hero createHero(final String type, final int id, final int x, final int y) {
         switch (type) {
             case Constants.KNIGHT_INITIAL:
-                return new Knight(x, y);
+                return new Knight(id, x, y);
             case Constants.PYRO_INITIAL:
-                return new Pyromancer(x, y);
+                return new Pyromancer(id, x, y);
             case Constants.ROGUE_INITIAL:
-                return new Rogue(x, y);
+                return new Rogue(id, x, y);
             default:
-                return new Wizard(x, y);
+                return new Wizard(id, x, y);
         }
     }
 }

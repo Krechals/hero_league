@@ -6,8 +6,8 @@ import common.Constants;
 import map.TerrainList;
 
 public class Knight extends Hero {
-    public Knight(final int x, final int y) {
-        super(Constants.KNIGHT_HP, Constants.KNIGHT_BONUS_HP, x, y);
+    public Knight(final int id, final int x, final int y) {
+        super(Constants.KNIGHT_HP, Constants.KNIGHT_BONUS_HP, id, x, y);
         initial = 'K';
         a1 = AbilityFactory.getInstance().createAbility(AbilityList.EXECUTE);
         a2 = AbilityFactory.getInstance().createAbility(AbilityList.SLAM);
@@ -97,5 +97,9 @@ public class Knight extends Hero {
 
         wiz.setPrevHP();
         attackHero(wiz);
+    }
+    @Override
+    public final String getName() {
+        return "Knight";
     }
 }

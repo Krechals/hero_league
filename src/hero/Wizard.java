@@ -7,8 +7,8 @@ import map.TerrainList;
 
 public class Wizard extends Hero {
     private int prevHP;
-    public Wizard(final int x, final int y) {
-        super(Constants.WIZ_HP, Constants.WIZ_BONUS_HP, x, y);
+    public Wizard(final int id, final int x, final int y) {
+        super(Constants.WIZ_HP, Constants.WIZ_BONUS_HP, id, x, y);
         initial = 'W';
         prevHP = Constants.WIZ_HP;
         a1 = AbilityFactory.getInstance().createAbility(AbilityList.DRAIN);
@@ -96,5 +96,9 @@ public class Wizard extends Hero {
 
         wiz.setPrevHP();
         attackHero(wiz);
+    }
+    @Override
+    public final String getName() {
+        return "Wizard";
     }
 }

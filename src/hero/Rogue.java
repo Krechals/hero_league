@@ -6,8 +6,8 @@ import common.Constants;
 import map.TerrainList;
 
 public class Rogue extends Hero {
-    public Rogue(final int x, final int y) {
-        super(Constants.ROGUE_HP, Constants.ROGUE_BONUS_HP, x, y);
+    public Rogue(final int id, final int x, final int y) {
+        super(Constants.ROGUE_HP, Constants.ROGUE_BONUS_HP, id, x, y);
         initial = 'R';
         a1 = AbilityFactory.getInstance().createAbility(AbilityList.BACKSTAB);
         a2 = AbilityFactory.getInstance().createAbility(AbilityList.PARALYSIS);
@@ -95,5 +95,9 @@ public class Rogue extends Hero {
 
         wiz.setPrevHP();
         attackHero(wiz);
+    }
+    @Override
+    public final String getName() {
+        return "Rogue";
     }
 }

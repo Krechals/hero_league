@@ -14,6 +14,12 @@ public final class Scoreboard {
         List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
         try {
             FileSystem fs = new FileSystem(mInputPath, mOutputPath);
+            for (String data : GreatMagician.getInstance().getLogs()) {
+                fs.writeWord(data);
+                fs.writeNewLine();
+            }
+            fs.writeWord("~~ Results ~~");
+            fs.writeNewLine();
             for (Hero h : heros) {
 
                 fs.writeWord(h.getInitial() + " ");

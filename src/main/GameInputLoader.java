@@ -20,11 +20,16 @@ public final class GameInputLoader {
         List<String> playesrType = new ArrayList<>();
         List<Integer> playersLocation = new ArrayList<>();
         List<String> moves = new ArrayList<>();
+        List<String> angelsType = new ArrayList<>();
+        List<Integer> angelsRound = new ArrayList<>();
+        List<Integer> angelsLocation = new ArrayList<>();
 
         int lines = 0;
         int columns = 0;
         int noPlayers = 0;
         int noRounds = 0;
+        int currentRoundAngels = 0;
+        String angelData = new String();
 
         try {
             FileSystem fs = new FileSystem(mInputPath, mOutputPath);
@@ -49,6 +54,25 @@ public final class GameInputLoader {
                 moves.add(fs.nextWord());
             }
 
+            // Read Angel appearance
+            for (int round = 0; round < noRounds; ++round) {
+                currentRoundAngels = fs.nextInt();
+                for (int j = 0; j < currentRoundAngels; ++j) {
+                    angelsRound.add(round);
+                    angelData = fs.nextWord();
+                    int dataIndex = 0;
+                    // Split Angel's data from input for easier access
+                    for (String data : angelData.split(",")) {
+                        if (dataIndex == 0) {
+                            angelsType.add(data);
+                        } else {
+                            angelsLocation.add(Integer.parseInt(data));
+                        }
+                        ++dataIndex;
+                    }
+                }
+            }
+
             fs.close();
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -62,6 +86,9 @@ public final class GameInputLoader {
                     .setPlayersLocatiomn(playersLocation)
                     .setRounds(noRounds)
                     .setPlayerMoves(moves)
+                    .setAngelRound(angelsRound)
+                    .setAngelType(angelsType)
+                    .setAngelLocation(angelsLocation)
                     .build();
     }
 }

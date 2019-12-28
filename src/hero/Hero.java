@@ -1,10 +1,13 @@
 package hero;
 
+import DataLogs.DataLevelUp;
 import ability.Ability;
 import common.Constants;
+import engine.DataRepository;
 import map.TerrainList;
 
 public abstract class Hero {
+    private int id;
     private int fullHp;
     private int hp;
     private int bonusHp;
@@ -21,7 +24,8 @@ public abstract class Hero {
     protected Ability a2;
     private TerrainList terrain;
 
-    public Hero(final int hp, final int bonusHp, final int x, final int y) {
+    public Hero(final int hp, final int bonusHp, final int id, final int x, final int y) {
+        this.id = id;
         this.hp = hp;
         this.fullHp = hp;
         this.bonusHp = bonusHp;
@@ -115,6 +119,9 @@ public abstract class Hero {
     public final int getHP() {
         return hp;
     }
+    public final int getID() {
+        return id;
+    }
     public final char getInitial() {
         return initial;
     }
@@ -146,7 +153,9 @@ public abstract class Hero {
     }
     // Checks and updates Hero's level
     private void updateLevel() {
+        DataRepository dataRepository = DataRepository.getInstance();
         int newLevel = (xp - Constants.HERO_FIRST_LEVEL) / Constants.HERO_LEVEL_UP;
+        dataRepository.addData(new DataLevelUp(this));
         if (newLevel > level) {
             level = newLevel;
             fullHp = fullHp + newLevel * bonusHp;
@@ -166,4 +175,5 @@ public abstract class Hero {
     abstract void attack(Pyromancer pyro);
     abstract void attack(Rogue rogue);
     abstract void attack(Wizard wiz);
+    public abstract String getName();
 }

@@ -1,5 +1,8 @@
 package engine;
 
+import DataLogs.DataBlank;
+import DataLogs.DataKill;
+import DataLogs.DataNewRound;
 import hero.Hero;
 import main.GameInput;
 import map.GameMap;
@@ -20,8 +23,11 @@ public final class GameProgress {
         int noRounds = gameInput.getRounds();
         List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
         GameMap map = GameMap.getInstance(gameInput.getTerrain());
+        DataRepository dataRepository = DataRepository.getInstance();
+        dataRepository.addObserver(GreatMagician.getInstance());
 
         for (int round = 0; round < noRounds; ++round) {
+            dataRepository.addData(new DataNewRound(round + 1));
             // Moves
             for (Hero currentHero : heros) {
                 // Remove heros previous location on map
@@ -66,13 +72,16 @@ public final class GameProgress {
                         // Update xp if we have a winner
                         if (!h2.isAlive()) {
                             h1.setXP(h2.getLevel());
+                            dataRepository.addData(new DataKill(h2, h1));
                         }
                         if (!h1.isAlive()) {
                             h2.setXP(h1.getLevel());
+                            dataRepository.addData(new DataKill(h1, h2));
                         }
                     }
                 }
             }
+            dataRepository.addData(new DataBlank());
         }
     }
 }

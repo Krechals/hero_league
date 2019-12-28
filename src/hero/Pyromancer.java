@@ -7,8 +7,8 @@ import common.Constants;
 import map.TerrainList;
 
 public class Pyromancer extends Hero {
-    public Pyromancer(final int x, final int y) {
-        super(Constants.PYRO_HP, Constants.PYRO_BONUS_HP, x, y);
+    public Pyromancer(final int id, final int x, final int y) {
+        super(Constants.PYRO_HP, Constants.PYRO_BONUS_HP, id, x, y);
         initial = 'P';
         a1 = AbilityFactory.getInstance().createAbility(AbilityList.FIREBLAST);
         a2 = AbilityFactory.getInstance().createAbility(AbilityList.IGNITE);
@@ -95,6 +95,10 @@ public class Pyromancer extends Hero {
 
         wiz.setPrevHP();
         attackHero(wiz);
+    }
+    @Override
+    public final String getName() {
+        return "Pyromancer";
     }
 
 }
