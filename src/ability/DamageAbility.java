@@ -6,6 +6,7 @@ public class DamageAbility extends Ability {
     private float terrainAmplifier;
     private float raceAmplifier;
     protected int damage;
+    protected int initialDamage;
     protected int bonusDamage;
 
     public DamageAbility() {
@@ -32,8 +33,10 @@ public class DamageAbility extends Ability {
 
     @Override
     public final void setRaceAmplifier(final float amplifier) {
-        raceAmplifier = amplifier;
-    }
+        if (amplifier != 1.0f) {
+            raceAmplifier = amplifier + angelBonus;
+        }
+   }
     @Override
     public final void setTerrainAmplifier(final float amplifier) {
         terrainAmplifier = amplifier;
@@ -74,6 +77,6 @@ public class DamageAbility extends Ability {
      */
     @Override
     public void updateSkill(final int level) {
-        damage = damage + level * bonusDamage;
+        damage = damage + bonusDamage;
     }
 }

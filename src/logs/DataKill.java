@@ -1,4 +1,4 @@
-package DataLogs;
+package logs;
 
 import hero.Hero;
 

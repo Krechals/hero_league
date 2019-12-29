@@ -24,7 +24,7 @@ public class Deflect extends DamageAbility {
     @Override
     public final void updateSkill(final int level) {
         super.updateSkill(level);
-        percent = percent + level * bonusPercent;
+        percent = percent + bonusPercent;
         if (percent > Constants.DEFLECT_MAX_PERCENT) {
             percent = Constants.DEFLECT_MAX_PERCENT;
         }

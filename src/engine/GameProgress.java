@@ -1,11 +1,14 @@
 package engine;
 
-import DataLogs.DataBlank;
-import DataLogs.DataKill;
-import DataLogs.DataNewRound;
+import angel.Angel;
+import logs.DataBlank;
+import logs.DataKill;
+import logs.DataNewRound;
 import hero.Hero;
+import logs.DataSpawn;
 import main.GameInput;
 import map.GameMap;
+import setup.AngelFactory;
 import setup.SingletonHeroList;
 
 import java.util.List;
@@ -21,8 +24,10 @@ public final class GameProgress {
     public static void play(final GameInput gameInput) {
         int noHeros = gameInput.getPlayersNumber();
         int noRounds = gameInput.getRounds();
+        int currentAngel = 0;
         List<Hero> heros = SingletonHeroList.getInstance().getHeroes();
         GameMap map = GameMap.getInstance(gameInput.getTerrain());
+        AngelFactory angelFactory = AngelFactory.getInstance();
         DataRepository dataRepository = DataRepository.getInstance();
         dataRepository.addObserver(GreatMagician.getInstance());
 
@@ -71,15 +76,30 @@ public final class GameProgress {
 
                         // Update xp if we have a winner
                         if (!h2.isAlive()) {
-                            h1.setXP(h2.getLevel());
-                            dataRepository.addData(new DataKill(h2, h1));
+                            dataRepository.addData(new DataKill(h1, h2));
+                            if (h1.isAlive()) {
+                                h1.setXP(h2.getLevel());
+                            }
                         }
                         if (!h1.isAlive()) {
-                            h2.setXP(h1.getLevel());
-                            dataRepository.addData(new DataKill(h1, h2));
+                            dataRepository.addData(new DataKill(h2, h1));
+                            if (h2.isAlive()) {
+                                h2.setXP(h1.getLevel());
+                            }
                         }
                     }
                 }
+            }
+            for (int angelID = 0; angelID < gameInput.getAngelRound().get(round); angelID++) {
+                Angel newAngel = angelFactory.createAngel(gameInput.getAngelType().get(currentAngel), gameInput.getAngelLocation().get(2 * currentAngel), gameInput.getAngelLocation().get(2 * currentAngel + 1));
+                dataRepository.addData(new DataSpawn(newAngel, newAngel.getxLocation(), newAngel.getyLocation()));
+                for (int heroID = 0; heroID < noHeros; ++heroID) {
+                    Hero currentHero = heros.get(heroID);
+                    if (currentHero.getxLocation() == newAngel.getxLocation() && currentHero.getyLocation() == newAngel.getyLocation()) {
+                        currentHero.isHelpedBy(newAngel);
+                    }
+                }
+                ++currentAngel;
             }
             dataRepository.addData(new DataBlank());
         }

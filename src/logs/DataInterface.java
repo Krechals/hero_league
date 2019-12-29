@@ -1,4 +1,4 @@
-package DataLogs;
+package logs;
 
 public interface DataInterface {
     String toString();

@@ -1,4 +1,4 @@
-package DataLogs;
+package logs;
 
 public class DataNewRound implements DataInterface {
     int round;

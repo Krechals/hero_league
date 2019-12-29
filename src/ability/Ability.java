@@ -3,6 +3,8 @@ package ability;
 import hero.Hero;
 
 public abstract class Ability {
+
+    protected float angelBonus = 0.0f;
     /**
      * @param h
      * @return
@@ -36,6 +38,9 @@ public abstract class Ability {
     public int getBaseDamage(final Hero h, final Hero wiz) {
         // implemented in subclass
         return 0;
+    }
+    public void setAngelBonus(float bonus) {
+        angelBonus = bonus;
     }
     abstract int noRaceModifiersDamage(Hero h);
     public abstract void setTerrainAmplifier(float amplifier);

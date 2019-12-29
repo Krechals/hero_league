@@ -70,11 +70,11 @@ public class OvertimeAbility extends Ability {
      */
     @Override
     public void updateSkill(final int level) {
-        damage = damage + level * bonusDamage;
+        damage = damage + bonusDamage;
     }
     @Override
     public final void setRaceAmplifier(final float amplifier) {
-        raceAmplifier = amplifier;
+        raceAmplifier = amplifier + angelBonus;
     }
     @Override
     public final void setTerrainAmplifier(final float amplifier) {

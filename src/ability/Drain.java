@@ -21,6 +21,6 @@ public class Drain extends DamageAbility {
     }
     @Override
     public final void updateSkill(final int level) {
-        percent += level * bonusPercent;
+        percent += bonusPercent;
     }
 }

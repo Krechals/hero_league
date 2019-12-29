@@ -30,7 +30,7 @@ public class Execute extends DamageAbility {
     @Override
     public final void updateSkill(final int level) {
         super.updateSkill(level);
-        limitHp = limitHp + level * bonusLimit;
+        limitHp = limitHp + bonusLimit;
         if (limitHp > Constants.EXECUTE_MAX_LIMIT) {
             limitHp = Constants.EXECUTE_MAX_LIMIT;
         }

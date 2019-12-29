@@ -1,6 +1,6 @@
 package engine;
 
-import DataLogs.DataInterface;
+import logs.DataInterface;
 
 import java.util.Observable;
 

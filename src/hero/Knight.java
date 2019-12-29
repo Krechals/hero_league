@@ -2,6 +2,7 @@ package hero;
 
 import ability.AbilityFactory;
 import ability.AbilityList;
+import angel.Angel;
 import common.Constants;
 import map.TerrainList;
 
@@ -97,6 +98,10 @@ public class Knight extends Hero {
 
         wiz.setPrevHP();
         attackHero(wiz);
+    }
+    @Override
+    public void isHelpedBy(Angel angel) {
+        angel.help(this);
     }
     @Override
     public final String getName() {

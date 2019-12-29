@@ -1,6 +1,8 @@
 package hero;
 
-import DataLogs.DataLevelUp;
+import angel.Angel;
+import logs.DataHelp;
+import logs.DataLevelUp;
 import ability.Ability;
 import common.Constants;
 import engine.DataRepository;
@@ -19,6 +21,7 @@ public abstract class Hero {
     private int timeDamage;
     private boolean isAlive;
     private int paralizedRounds;
+    private float angelBonus;
     protected char initial;
     protected Ability a1;
     protected Ability a2;
@@ -37,6 +40,7 @@ public abstract class Hero {
         this.timeDamage = 0;
         this.isAlive = true;
         this.terrain = null;
+        this.angelBonus = 0;
     }
 
     /**
@@ -80,6 +84,9 @@ public abstract class Hero {
                 * Constants.HERO_XP_MULTIPLIER);
         this.updateLevel();
     }
+    public final void addXP(final int xp) {
+        this.xp += xp;
+    }
     public final Ability getAbility1() {
         return a1;
     }
@@ -92,8 +99,23 @@ public abstract class Hero {
     public final int getyLocation() {
         return yLocation;
     }
-    final void decreaseHP(final int damage) {
+    public final void decreaseHP(final int damage) {
         this.hp -= damage;
+    }
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
+    public void revive() {
+        isAlive = true;
+    }
+    public void dead() {
+        isAlive = false;
+    }
+    public void addAngelBonus(float bonus) {
+        angelBonus += bonus;
+        a1.setAngelBonus(angelBonus);
+        a2.setAngelBonus(angelBonus);
     }
     final void setOvertimeDamage(final int damage) {
         overtimeDamaged = damage;
@@ -152,16 +174,18 @@ public abstract class Hero {
         paralizedRounds = rounds;
     }
     // Checks and updates Hero's level
-    private void updateLevel() {
-        DataRepository dataRepository = DataRepository.getInstance();
+    public void updateLevel() {
         int newLevel = (xp - Constants.HERO_FIRST_LEVEL) / Constants.HERO_LEVEL_UP;
-        dataRepository.addData(new DataLevelUp(this));
         if (newLevel > level) {
+            DataRepository dataRepository = DataRepository.getInstance();
+            for (int lvl = level + 1; lvl <= newLevel; ++lvl) {
+                level = lvl;
+                a1.updateSkill(level);
+                a2.updateSkill(level);
+                dataRepository.addData(new DataLevelUp(this));
+            }
             level = newLevel;
-            fullHp = fullHp + newLevel * bonusHp;
-            hp = fullHp;
-            a1.updateSkill(level);
-            a2.updateSkill(level);
+            hp = fullHp + newLevel * bonusHp;
         }
     }
     final void unsetOvertimes() {
@@ -175,5 +199,7 @@ public abstract class Hero {
     abstract void attack(Pyromancer pyro);
     abstract void attack(Rogue rogue);
     abstract void attack(Wizard wiz);
+
+    public abstract void isHelpedBy(Angel angel);
     public abstract String getName();
 }

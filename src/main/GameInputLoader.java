@@ -57,8 +57,8 @@ public final class GameInputLoader {
             // Read Angel appearance
             for (int round = 0; round < noRounds; ++round) {
                 currentRoundAngels = fs.nextInt();
+                angelsRound.add(currentRoundAngels);
                 for (int j = 0; j < currentRoundAngels; ++j) {
-                    angelsRound.add(round);
                     angelData = fs.nextWord();
                     int dataIndex = 0;
                     // Split Angel's data from input for easier access
