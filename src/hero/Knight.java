@@ -5,6 +5,9 @@ import ability.AbilityList;
 import angel.Angel;
 import common.Constants;
 import map.TerrainList;
+import strategy.BasicStrategy;
+import strategy.KnightAggressive;
+import strategy.KnightPassive;
 
 public class Knight extends Hero {
     public Knight(final int id, final int x, final int y) {
@@ -102,6 +105,17 @@ public class Knight extends Hero {
     @Override
     public void isHelpedBy(Angel angel) {
         angel.help(this);
+    }
+    @Override
+    public void setStrategy() {
+        if (this.getHP() >= this.getFullHp() / 2 || this.isParalized()) {
+            strategy = new BasicStrategy();
+        } else if (this.getFullHp() / 3 < this.getHP() && this.getHP() < this.getFullHp() / 2) {
+            strategy = new KnightAggressive();
+        } else if (this.getHP() < this.getFullHp() / 3 && 0 < this.getHP()) {
+            strategy = new KnightPassive();
+        }
+        strategy.applyStrategy(this);
     }
     @Override
     public final String getName() {

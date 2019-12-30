@@ -5,6 +5,7 @@ import ability.AbilityList;
 import angel.Angel;
 import common.Constants;
 import map.TerrainList;
+import strategy.*;
 
 public class Wizard extends Hero {
     private int prevHP;
@@ -101,6 +102,17 @@ public class Wizard extends Hero {
     @Override
     public void isHelpedBy(Angel angel) {
         angel.help(this);
+    }
+    @Override
+    public void setStrategy() {
+        if (this.getHP() >= this.getFullHp() / 2 || this.isParalized()) {
+            strategy = new BasicStrategy();
+        } else if (this.getFullHp() / 4 < this.getHP() && this.getHP() < this.getFullHp() / 2) {
+            strategy = new WizardAggressive();
+        } else if (this.getHP() < this.getFullHp() / 4 && 0 < this.getHP()) {
+            strategy = new WizardPassive();
+        }
+        strategy.applyStrategy(this);
     }
     @Override
     public final String getName() {

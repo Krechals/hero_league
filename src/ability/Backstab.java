@@ -28,7 +28,7 @@ public class Backstab extends DamageAbility {
     public final int noRaceModifiersDamage(final Hero h) {
         if (((noAttacks - 1) == 0 || (noAttacks - 1) % Constants.BACKSTAB_CRITICAL_ROUND == 0)
                 && (h.getTerrain() == TerrainList.WOODS)) {
-            return Math.round(damage * critical * getTerrainAmplifier());
+            return Math.round(Math.round(damage * getTerrainAmplifier()) * critical);
         }
         return Math.round(damage * getTerrainAmplifier());
     }

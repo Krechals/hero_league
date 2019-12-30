@@ -18,8 +18,8 @@ public final class Constants {
     public static final float DRAIN_BONUS_PERCENT = 0.05f;
     public static final float DRAIN_FORMULA_PERCENT = 0.30f;
     // Execute constants
-    public static final int EXECUTE_DAMAGE = 200;
-    public static final int EXECUTE_BONUS_DAMAGE = 30;
+    public static final float EXECUTE_DAMAGE = 200.0f;
+    public static final float EXECUTE_BONUS_DAMAGE = 30.0f;
     public static final float EXECUTE_LIMIT_HP = 0.20f;
     public static final float EXECUTE_BONUS_LIMIT = 0.01f;
     public static final float EXECUTE_MAX_LIMIT = 0.40f;
@@ -33,10 +33,10 @@ public final class Constants {
     public static final int IGNITE_BONUS_OVERTIME = 30;
     public static final int IGNITE_ROUNDS_OVERTIME = 2;
     // Paralysis constants
-    public static final int PARALYSIS_DAMAGE = 40;
-    public static final int PARALYSIS_BONUS_DAMAGE = 10;
-    public static final int PARALYSIS_OVERTIME_DAMAGE = 40;
-    public static final int PARALYSIS_BONUS_OVERTIME = 10;
+    public static final float PARALYSIS_DAMAGE = 40.0f;
+    public static final float PARALYSIS_BONUS_DAMAGE = 10.0f;
+    public static final float PARALYSIS_OVERTIME_DAMAGE = 40.0f;
+    public static final float PARALYSIS_BONUS_OVERTIME = 10.0f;
     public static final int PARALYSIS_ROUNDS_OVERTIME = 3;
     public static final int PARALYSIS_BONUS_ROUNDS_OVERTIME = 6;
     // Slam constants

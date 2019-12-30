@@ -7,10 +7,12 @@ import ability.Ability;
 import common.Constants;
 import engine.DataRepository;
 import map.TerrainList;
+import strategy.AttackStrategy;
 
 public abstract class Hero {
     private int id;
     private int fullHp;
+    private int initialHp;
     private int hp;
     private int bonusHp;
     private int xp;
@@ -25,12 +27,14 @@ public abstract class Hero {
     protected char initial;
     protected Ability a1;
     protected Ability a2;
+    protected AttackStrategy strategy;
     private TerrainList terrain;
 
     public Hero(final int hp, final int bonusHp, final int id, final int x, final int y) {
         this.id = id;
         this.hp = hp;
         this.fullHp = hp;
+        this.initialHp = hp;
         this.bonusHp = bonusHp;
         this.xp = 0;
         this.level = 0;
@@ -104,6 +108,9 @@ public abstract class Hero {
     }
     public void setHP(int hp) {
         this.hp = hp;
+        if (this.hp > fullHp) {
+            this.hp = fullHp;
+        }
     }
 
     public void revive() {
@@ -185,8 +192,13 @@ public abstract class Hero {
                 dataRepository.addData(new DataLevelUp(this));
             }
             level = newLevel;
-            hp = fullHp + newLevel * bonusHp;
+            hp = initialHp + newLevel * bonusHp;
+            fullHp = hp;
         }
+    }
+    public void levelUP() {
+        this.xp = 200 + (this.level + 1) * 50;
+        this.updateLevel();
     }
     final void unsetOvertimes() {
         paralizedRounds = 0;
@@ -201,5 +213,6 @@ public abstract class Hero {
     abstract void attack(Wizard wiz);
 
     public abstract void isHelpedBy(Angel angel);
+    public abstract void setStrategy();
     public abstract String getName();
 }

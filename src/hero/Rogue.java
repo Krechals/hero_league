@@ -5,6 +5,7 @@ import ability.AbilityList;
 import angel.Angel;
 import common.Constants;
 import map.TerrainList;
+import strategy.*;
 
 public class Rogue extends Hero {
     public Rogue(final int id, final int x, final int y) {
@@ -100,6 +101,17 @@ public class Rogue extends Hero {
     @Override
     public void isHelpedBy(Angel angel) {
         angel.help(this);
+    }
+    @Override
+    public void setStrategy() {
+        if (this.getHP() >= this.getFullHp() / 5 || this.isParalized()) {
+            strategy = new BasicStrategy();
+        } else if (this.getFullHp() / 7 < this.getHP() && this.getHP() < this.getFullHp() / 5) {
+            strategy = new RogueAggressive();
+        } else if (this.getHP() < this.getFullHp() / 7 && 0 < this.getHP()) {
+            strategy = new RoguePassive();
+        }
+        strategy.applyStrategy(this);
     }
     @Override
     public final String getName() {

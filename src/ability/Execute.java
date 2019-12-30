@@ -18,7 +18,7 @@ public class Execute extends DamageAbility {
         if (Math.round(h.getFullHp() * limitHp) >= h.getHP()) {
             return h.getHP();
         }
-        return Math.round(damage * getTerrainAmplifier() * getRaceAmplifier());
+        return Math.round(Math.round(damage * getTerrainAmplifier()) * getRaceAmplifier());
     }
     @Override
     public final int noRaceModifiersDamage(final Hero h) {

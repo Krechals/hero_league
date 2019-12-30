@@ -41,6 +41,7 @@ public final class GameProgress {
             // Give overtime damage
             for (Hero h : heros) {
                 h.overtimeDamage();
+                h.setStrategy();
             }
             // Update heros current location on map
             for (int heroID = 0; heroID < noHeros; ++heroID) {
@@ -90,6 +91,7 @@ public final class GameProgress {
                     }
                 }
             }
+            System.out.println(heros.get(1).getHP());
             for (int angelID = 0; angelID < gameInput.getAngelRound().get(round); angelID++) {
                 Angel newAngel = angelFactory.createAngel(gameInput.getAngelType().get(currentAngel), gameInput.getAngelLocation().get(2 * currentAngel), gameInput.getAngelLocation().get(2 * currentAngel + 1));
                 dataRepository.addData(new DataSpawn(newAngel, newAngel.getxLocation(), newAngel.getyLocation()));

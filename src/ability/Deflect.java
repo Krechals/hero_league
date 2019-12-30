@@ -18,8 +18,7 @@ public class Deflect extends DamageAbility {
         }
         int totalDamage = Math.round(h.getAbility1().noRaceModifiersDamage(wiz)
                                     + h.getAbility2().noRaceModifiersDamage(wiz));
-        return Math.round(Math.round(percent * totalDamage)
-                                    * getRaceAmplifier() * getTerrainAmplifier());
+        return Math.round(percent * totalDamage * getTerrainAmplifier() * getRaceAmplifier());
     }
     @Override
     public final void updateSkill(final int level) {

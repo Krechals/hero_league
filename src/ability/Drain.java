@@ -16,8 +16,7 @@ public class Drain extends DamageAbility {
     public final int getBaseDamage(final Hero h) {
         int totalDamage = Math.min(Math.round(Constants.DRAIN_FORMULA_PERCENT
                                     * h.getFullHp()), h.getHP());
-        return Math.round(Math.round(percent *  totalDamage) * getRaceAmplifier()
-                                    * getTerrainAmplifier());
+        return Math.round(percent *  totalDamage * getRaceAmplifier() * getTerrainAmplifier());
     }
     @Override
     public final void updateSkill(final int level) {

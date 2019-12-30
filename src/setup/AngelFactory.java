@@ -28,6 +28,14 @@ public class AngelFactory {
             return new Dracula(x, y);
         } else if (type.equals("XPAngel")) {
             return new XPAngel(x, y);
+        } else if (type.equals("SmallAngel")) {
+            return new SmallAngel(x, y);
+        } else if (type.equals("GoodBoy")) {
+            return new GoodBoy(x, y);
+        } else if (type.equals("LifeGiver")) {
+            return new LifeGiver(x, y);
+        } else if (type.equals("LevelUpAngel")) {
+            return new LevelUpAngel(x, y);
         }
         return null;
     }

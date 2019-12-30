@@ -5,17 +5,17 @@ import hero.Hero;
 public class OvertimeAbility extends Ability {
     private float terrainAmplifier;
     private float raceAmplifier;
-    protected int damage;
-    protected int bonusDamage;
-    protected int overtimeDamage;
-    protected int overtimeBonus;
+    protected float damage;
+    protected float bonusDamage;
+    protected float overtimeDamage;
+    protected float overtimeBonus;
     protected int timeDamage;
     protected int paralizedRounds;
 
     public OvertimeAbility() {
-        terrainAmplifier = 1;
-        raceAmplifier = 1;
-        damage = 0;
+        terrainAmplifier = 1.0f;
+        raceAmplifier = 1.0f;
+        damage = 0.0f;
         overtimeDamage = 0;
         timeDamage = 0;
         paralizedRounds = 0;
@@ -35,7 +35,7 @@ public class OvertimeAbility extends Ability {
      */
     @Override
     public final int getBaseDamage(final Hero h) {
-        return Math.round(damage * terrainAmplifier * raceAmplifier);
+        return Math.round(Math.round(damage * terrainAmplifier) * raceAmplifier - 0.0001f);
     }
 
     /**
@@ -53,7 +53,7 @@ public class OvertimeAbility extends Ability {
      */
     @Override
     public int getOvertimeDamage() {
-        return Math.round(overtimeDamage * terrainAmplifier * raceAmplifier);
+        return Math.round(Math.round(overtimeDamage * terrainAmplifier) * raceAmplifier);
     }
 
     /**
@@ -74,7 +74,7 @@ public class OvertimeAbility extends Ability {
     }
     @Override
     public final void setRaceAmplifier(final float amplifier) {
-        raceAmplifier = amplifier + angelBonus;
+        raceAmplifier = amplifier + angelBonus + strategyBonus;
     }
     @Override
     public final void setTerrainAmplifier(final float amplifier) {

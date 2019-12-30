@@ -5,6 +5,7 @@ import hero.Hero;
 public abstract class Ability {
 
     protected float angelBonus = 0.0f;
+    protected float strategyBonus = 0.0f;
     /**
      * @param h
      * @return
@@ -41,6 +42,9 @@ public abstract class Ability {
     }
     public void setAngelBonus(float bonus) {
         angelBonus = bonus;
+    }
+    public void setStrategyBonus(float bonus) {
+        strategyBonus += bonus;
     }
     abstract int noRaceModifiersDamage(Hero h);
     public abstract void setTerrainAmplifier(float amplifier);

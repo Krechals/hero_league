@@ -5,14 +5,14 @@ import hero.Hero;
 public class DamageAbility extends Ability {
     private float terrainAmplifier;
     private float raceAmplifier;
-    protected int damage;
+    protected float damage;
     protected int initialDamage;
-    protected int bonusDamage;
+    protected float bonusDamage;
 
     public DamageAbility() {
-        terrainAmplifier = 1;
-        raceAmplifier = 1;
-        damage = 0;
+        terrainAmplifier = 1f;
+        raceAmplifier = 1f;
+        damage = 0.0f;
     }
 
     /**
@@ -34,7 +34,7 @@ public class DamageAbility extends Ability {
     @Override
     public final void setRaceAmplifier(final float amplifier) {
         if (amplifier != 1.0f) {
-            raceAmplifier = amplifier + angelBonus;
+            raceAmplifier = amplifier + angelBonus + strategyBonus;
         }
    }
     @Override
@@ -57,7 +57,7 @@ public class DamageAbility extends Ability {
      */
     @Override
     public int getBaseDamage(final Hero h) {
-        return Math.round(damage * terrainAmplifier * raceAmplifier);
+        return Math.round(Math.round(damage * terrainAmplifier)  * raceAmplifier);
     }
 
     /**

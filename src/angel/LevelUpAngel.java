@@ -5,52 +5,50 @@ import hero.Knight;
 import hero.Pyromancer;
 import hero.Rogue;
 import hero.Wizard;
-import logs.DataAngelKill;
 import logs.DataHelp;
-import logs.DataHit;
 
-public class XPAngel extends Angel {
-    public XPAngel(int x, int y) {
+public class LevelUpAngel extends Angel {
+    public LevelUpAngel(int x, int y) {
         super(x, y);
     }
     @Override
     public void help(Knight knight) {
         if (knight.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            knight.addXP(45);
+            knight.addAngelBonus(0.10f);
             dataRepository.addData(new DataHelp(this, knight));
-            knight.updateLevel();
+            knight.levelUP();
         }
     }
     @Override
     public void help(Pyromancer pyro) {
         if (pyro.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            pyro.addXP(50);
+            pyro.addAngelBonus(0.20f);
             dataRepository.addData(new DataHelp(this, pyro));
-            pyro.updateLevel();
+            pyro.levelUP();
         }
     }
     @Override
     public void help(Rogue rogue) {
         if (rogue.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            rogue.addXP(40);
+            rogue.addAngelBonus(0.15f);
             dataRepository.addData(new DataHelp(this, rogue));
-            rogue.updateLevel();
+            rogue.levelUP();
         }
     }
     @Override
     public void help(Wizard wiz) {
         if (wiz.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            wiz.addXP(60);
+            wiz.addAngelBonus(0.25f);
             dataRepository.addData(new DataHelp(this, wiz));
-            wiz.updateLevel();
+            wiz.levelUP();
         }
     }
     @Override
     public String getName() {
-        return "XPAngel";
+        return "LevelUpAngel";
     }
 }
