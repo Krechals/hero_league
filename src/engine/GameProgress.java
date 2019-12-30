@@ -21,6 +21,9 @@ public final class GameProgress {
         return map.getMapPlayer1().get(x).get(y)
                 != null && map.getMapPlayer2().get(x).get(y) != null;
     }
+    private static boolean onSameLocation(Hero hero1, Hero hero2) {
+        return (hero1.getxLocation() == hero2.getxLocation() && hero1.getyLocation() == hero2.getyLocation());
+    }
     public static void play(final GameInput gameInput) {
         int noHeros = gameInput.getPlayersNumber();
         int noRounds = gameInput.getRounds();
@@ -36,7 +39,9 @@ public final class GameProgress {
             // Moves
             for (Hero currentHero : heros) {
                 // Remove heros previous location on map
-                map.setHeroOnMap(null, currentHero.getxLocation(), currentHero.getyLocation());
+                if (currentHero.getxLocation() >= 0 && currentHero.getyLocation() >= 0) {
+                    map.setHeroOnMap(null, currentHero.getxLocation(), currentHero.getyLocation());
+                }
             }
             // Give overtime damage
             for (Hero h : heros) {
@@ -48,29 +53,34 @@ public final class GameProgress {
                 Hero currentHero = heros.get(heroID);
 
                 // Check if current hero is alive
-                if (heros.get(heroID).isAlive()) {
+                if (currentHero.isAlive()) {
                     char operation = gameInput.getPlayersMoves().get(round).charAt(heroID);
 
                     // Check if current hero is paralysed
                     if (!heros.get(heroID).isParalized()) {
                         heros.get(heroID).move(operation);
                     }
-                    heros.get(heroID).decreaseParalizedTime();
-                    map.setHeroOnMap(currentHero, currentHero.getxLocation(),
-                                    currentHero.getyLocation());
-                    heros.get(heroID).setTerrain(map.getTerrain(currentHero.getxLocation(),
-                                    currentHero.getyLocation()));
+                    if (currentHero.getxLocation() >= 0 && currentHero.getyLocation() >= 0) {
+                        heros.get(heroID).decreaseParalizedTime();
+                        map.setHeroOnMap(currentHero, currentHero.getxLocation(),
+                                        currentHero.getyLocation());
+                        heros.get(heroID).setTerrain(map.getTerrain(currentHero.getxLocation(),
+                                         currentHero.getyLocation()));
+                    }
                 }
             }
             // Attacks
             int lines = gameInput.getLineSize();
             int columns = gameInput.getColumnSize();
-            for (int i = 0; i < lines; ++i) {
-                for (int j = 0; j < columns; ++j) {
+            for (int heroID1 = 0; heroID1 < noHeros; ++heroID1) {
+                for (int heroID2 = heroID1 + 1; heroID2 < noHeros; ++heroID2) {
+                    Hero h1 = heros.get(heroID1);
+                    Hero h2 = heros.get(heroID2);
+
                     // Check if there are 2 players on a terrain
-                    if (areHerosOnTerrain(map, i, j)) {
-                        Hero h1 = map.getMapPlayer1().get(i).get(j);
-                        Hero h2 = map.getMapPlayer2().get(i).get(j);
+                    if (onSameLocation(h1, h2) && h1.isAlive() && h2.isAlive()) {
+                        h1 = map.getMapPlayer1().get(h1.getxLocation()).get(h1.getyLocation());
+                        h2 = map.getMapPlayer2().get(h2.getxLocation()).get(h2.getyLocation());
 
                         h2.isAttackedBy(h1);
                         h1.isAttackedBy(h2);
@@ -91,7 +101,7 @@ public final class GameProgress {
                     }
                 }
             }
-            System.out.println(heros.get(1).getHP());
+
             for (int angelID = 0; angelID < gameInput.getAngelRound().get(round); angelID++) {
                 Angel newAngel = angelFactory.createAngel(gameInput.getAngelType().get(currentAngel), gameInput.getAngelLocation().get(2 * currentAngel), gameInput.getAngelLocation().get(2 * currentAngel + 1));
                 dataRepository.addData(new DataSpawn(newAngel, newAngel.getxLocation(), newAngel.getyLocation()));
@@ -103,6 +113,7 @@ public final class GameProgress {
                 }
                 ++currentAngel;
             }
+            System.out.println(round + " " + heros.get(33).getHP() + " " + heros.get(33).isAlive());
             dataRepository.addData(new DataBlank());
         }
     }

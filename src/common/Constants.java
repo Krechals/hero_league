@@ -72,8 +72,8 @@ public final class Constants {
     public static final float PYRO_ATTACKS_PYRO_AMPLIFIER_2 = 0.9f;
     public static final float PYRO_ATTACKS_ROGUE_AMPLIFIER_1 = 0.80f;
     public static final float PYRO_ATTACKS_ROGUE_AMPLIFIER_2 = 0.80f;
-    public static final float PYRO_ATTACKS_WIZ_AMPLIFIER_1 = 0.95f;
-    public static final float PYRO_ATTACKS_WIZ_AMPLIFIER_2 = 0.95f;
+    public static final float PYRO_ATTACKS_WIZ_AMPLIFIER_1 = 1.05f;
+    public static final float PYRO_ATTACKS_WIZ_AMPLIFIER_2 = 1.05f;
 
     // Rogue constants
     public static final int ROGUE_HP = 600;

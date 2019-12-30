@@ -108,10 +108,12 @@ public class Pyromancer extends Hero {
             strategy = new BasicStrategy();
         } else if (this.getFullHp() / 4 < this.getHP() && this.getHP() < this.getFullHp() / 3) {
             strategy = new PyromancerAggressive();
+            strategy.applyStrategy(this);
         } else if (this.getHP() < this.getFullHp() / 4 && 0 < this.getHP()) {
             strategy = new PyromancerPassive();
+            strategy.applyStrategy(this);
         }
-        strategy.applyStrategy(this);
+
     }
     @Override
     public final String getName() {

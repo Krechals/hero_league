@@ -108,10 +108,11 @@ public class Rogue extends Hero {
             strategy = new BasicStrategy();
         } else if (this.getFullHp() / 7 < this.getHP() && this.getHP() < this.getFullHp() / 5) {
             strategy = new RogueAggressive();
+            strategy.applyStrategy(this);
         } else if (this.getHP() < this.getFullHp() / 7 && 0 < this.getHP()) {
             strategy = new RoguePassive();
+            strategy.applyStrategy(this);
         }
-        strategy.applyStrategy(this);
     }
     @Override
     public final String getName() {

@@ -13,6 +13,7 @@ public abstract class Hero {
     private int id;
     private int fullHp;
     private int initialHp;
+    public int noStrategyHP;
     private int hp;
     private int bonusHp;
     private int xp;
@@ -35,6 +36,7 @@ public abstract class Hero {
         this.hp = hp;
         this.fullHp = hp;
         this.initialHp = hp;
+        this.noStrategyHP = hp;
         this.bonusHp = bonusHp;
         this.xp = 0;
         this.level = 0;
@@ -46,7 +48,9 @@ public abstract class Hero {
         this.terrain = null;
         this.angelBonus = 0;
     }
-
+    public int getOvertimeDamaged() {
+        return timeDamage;
+    }
     /**
      * Moves a player on the map.
      * @param operation: Move direction (up, down, left, right)
@@ -105,8 +109,17 @@ public abstract class Hero {
     }
     public final void decreaseHP(final int damage) {
         this.hp -= damage;
+        this.noStrategyHP -= damage;
     }
     public void setHP(int hp) {
+        this.hp = hp;
+        this.noStrategyHP = hp;
+        if (this.hp > fullHp) {
+            this.hp = fullHp;
+            this.noStrategyHP = hp;
+        }
+    }
+    public void setStrategyHP(int hp) {
         this.hp = hp;
         if (this.hp > fullHp) {
             this.hp = fullHp;
@@ -134,6 +147,7 @@ public abstract class Hero {
         if (timeDamage > 0) {
             --timeDamage;
             hp -= overtimeDamaged;
+            this.noStrategyHP -= overtimeDamaged;
             if (hp <= 0) {
                 this.killPlayer();
             }
@@ -193,6 +207,7 @@ public abstract class Hero {
             }
             level = newLevel;
             hp = initialHp + newLevel * bonusHp;
+            noStrategyHP = initialHp + newLevel * bonusHp;
             fullHp = hp;
         }
     }

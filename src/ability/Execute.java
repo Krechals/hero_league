@@ -15,14 +15,14 @@ public class Execute extends DamageAbility {
     }
     @Override
     public final int getBaseDamage(final Hero h) {
-        if (Math.round(h.getFullHp() * limitHp) >= h.getHP()) {
+        if (Math.round(h.getFullHp() * limitHp) >= h.getHP() && Math.round(Math.round(damage * getTerrainAmplifier()) * getRaceAmplifier()) < h.getHP()) {
             return h.getHP();
         }
         return Math.round(Math.round(damage * getTerrainAmplifier()) * getRaceAmplifier());
     }
     @Override
     public final int noRaceModifiersDamage(final Hero h) {
-        if (Math.round(h.getFullHp() * limitHp) >= h.getPrevHP()) {
+        if (Math.round(h.getFullHp() * limitHp) >= h.getPrevHP() && Math.round(Math.round(damage * getTerrainAmplifier())) < h.getHP()) {
             return h.getHP();
         }
         return Math.round(damage * getTerrainAmplifier());

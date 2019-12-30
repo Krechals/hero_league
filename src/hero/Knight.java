@@ -108,14 +108,16 @@ public class Knight extends Hero {
     }
     @Override
     public void setStrategy() {
-        if (this.getHP() >= this.getFullHp() / 2 || this.isParalized()) {
+        if (this.noStrategyHP >= this.getFullHp() / 2 || this.isParalized()) {
             strategy = new BasicStrategy();
         } else if (this.getFullHp() / 3 < this.getHP() && this.getHP() < this.getFullHp() / 2) {
             strategy = new KnightAggressive();
+            strategy.applyStrategy(this);
         } else if (this.getHP() < this.getFullHp() / 3 && 0 < this.getHP()) {
             strategy = new KnightPassive();
+            strategy.applyStrategy(this);
         }
-        strategy.applyStrategy(this);
+
     }
     @Override
     public final String getName() {

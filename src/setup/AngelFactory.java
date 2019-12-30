@@ -36,6 +36,8 @@ public class AngelFactory {
             return new LifeGiver(x, y);
         } else if (type.equals("LevelUpAngel")) {
             return new LevelUpAngel(x, y);
+        } else if (type.equals("DarkAngel")) {
+            return new DarkAngel(x, y);
         }
         return null;
     }
