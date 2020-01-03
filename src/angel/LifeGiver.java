@@ -1,5 +1,6 @@
 package angel;
 
+import common.Constants;
 import engine.DataRepository;
 import hero.Knight;
 import hero.Pyromancer;
@@ -8,43 +9,47 @@ import hero.Wizard;
 import logs.DataHelp;
 
 public class LifeGiver extends Angel {
-    public LifeGiver(int x, int y) {
+    public LifeGiver(final int x, final int y) {
         super(x, y);
     }
     @Override
-    public void help(Knight knight) {
+    public final void help(final Knight knight) {
         if (knight.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            knight.setHP(knight.getHP() + 100);
+            // Increases hero's HP
+            knight.setHP(knight.getHP() + Constants.LIFE_ANGEL_KNIGHT);
             dataRepository.addData(new DataHelp(this, knight));
         }
     }
     @Override
-    public void help(Pyromancer pyro) {
+    public final void help(final Pyromancer pyro) {
         if (pyro.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            pyro.setHP(pyro.getHP() + 80);
+            // Increases hero's HP
+            pyro.setHP(pyro.getHP() + Constants.LIFE_ANGEL_PYRO);
             dataRepository.addData(new DataHelp(this, pyro));
         }
     }
     @Override
-    public void help(Rogue rogue) {
+    public final void help(final Rogue rogue) {
         if (rogue.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            rogue.setHP(rogue.getHP() + 90);
+            // Increases hero's HP
+            rogue.setHP(rogue.getHP() + Constants.LIFE_ANGEL_ROGUE);
             dataRepository.addData(new DataHelp(this, rogue));
         }
     }
     @Override
-    public void help(Wizard wiz) {
+    public final void help(final Wizard wiz) {
         if (wiz.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            wiz.setHP(wiz.getHP() + 120);
+            // Increases hero's HP
+            wiz.setHP(wiz.getHP() + Constants.LIFE_ANGEL_WIZ);
             dataRepository.addData(new DataHelp(this, wiz));
         }
     }
     @Override
-    public String getName() {
+    public final String getName() {
         return "LifeGiver";
     }
 }

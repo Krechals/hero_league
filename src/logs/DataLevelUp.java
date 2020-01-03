@@ -2,14 +2,14 @@ package logs;
 
 import hero.Hero;
 
-public class DataLevelUp implements DataInterface{
+public class DataLevelUp implements DataInterface {
     private Hero hero;
 
-    public DataLevelUp(Hero h) {
+    public DataLevelUp(final Hero h) {
         hero = h;
     }
     @Override
-    public String toString() {
+    public final String toString() {
         return hero.getName() + " " + hero.getID() + " reached level " + hero.getLevel();
     }
 }

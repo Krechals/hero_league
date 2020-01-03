@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class GameMap {
+    // Singleton Design Pattern - GameMap
     private static GameMap instance;
     private List<List<TerrainList>> mapTerrain;
     private List<List<Hero>> mapPlayer1;

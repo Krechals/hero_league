@@ -1,10 +1,19 @@
 package setup;
 
-import ability.AbilityFactory;
-import angel.*;
-import common.Constants;
 
-public class AngelFactory {
+import angel.Angel;
+import angel.DamageAngel;
+import angel.Spawner;
+import angel.TheDoomer;
+import angel.Dracula;
+import angel.XPAngel;
+import angel.SmallAngel;
+import angel.GoodBoy;
+import angel.LifeGiver;
+import angel.LevelUpAngel;
+import angel.DarkAngel;
+
+public final class AngelFactory {
     private static AngelFactory instance;
 
     private AngelFactory() {
@@ -16,8 +25,8 @@ public class AngelFactory {
         }
         return instance;
     }
-    // Factory Design Pattern
-    public Angel createAngel(String type, final int x, final int y) {
+    // Factory Design Pattern - Creating Angels
+    public Angel createAngel(final String type, final int x, final int y) {
         if (type.equals("Spawner")) {
             return new Spawner(x, y);
         } else if (type.equals("TheDoomer")) {

@@ -15,7 +15,7 @@ public class Paralysis extends OvertimeAbility {
         paralizedRounds = Constants.PARALYSIS_ROUNDS_OVERTIME;
     }
     @Override
-    public final int getParalizedRounds(final Hero h) {
+    public final int getParalyzedRounds(final Hero h) {
         if (h.getTerrain() == TerrainList.WOODS) {
             return Constants.PARALYSIS_BONUS_ROUNDS_OVERTIME;
         }

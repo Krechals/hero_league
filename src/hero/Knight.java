@@ -46,7 +46,7 @@ public class Knight extends Hero {
 
         h.unsetOvertimes();
         h.decreaseHP(a2.getBaseDamage(h));
-        h.setParalizedRounds(a2.getParalizedRounds(h));
+        h.setParalizedRounds(a2.getParalyzedRounds(h));
 
         if (h.getHP() <= 0) {
             h.killPlayer();
@@ -102,18 +102,29 @@ public class Knight extends Hero {
         wiz.setPrevHP();
         attackHero(wiz);
     }
+
+    /**
+     * Knight has interaction with an Angel.
+     * @param angel Angel that interacts with Knight
+     */
     @Override
-    public void isHelpedBy(Angel angel) {
+    public void isHelpedBy(final Angel angel) {
         angel.help(this);
     }
+
+    /**
+     * Applying a specific strategy according to Knight's HP.
+     */
     @Override
     public void setStrategy() {
-        if (this.noStrategyHP >= this.getFullHp() / 2 || this.isParalized()) {
+        if (this.getHP() >= this.getFullHp() * Constants.HALF || this.isParalized()) {
             strategy = new BasicStrategy();
-        } else if (this.getFullHp() / 3 < this.getHP() && this.getHP() < this.getFullHp() / 2) {
+        } else if (Math.round(this.getFullHp() * Constants.THIRD) < this.getHP()
+                    && this.getHP() < this.getFullHp() * Constants.HALF) {
             strategy = new KnightAggressive();
             strategy.applyStrategy(this);
-        } else if (this.getHP() < this.getFullHp() / 3 && 0 < this.getHP()) {
+        } else if (this.getHP() < Math.round(this.getFullHp() * Constants.THIRD)
+                    && 0 < this.getHP()) {
             strategy = new KnightPassive();
             strategy.applyStrategy(this);
         }

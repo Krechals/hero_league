@@ -17,12 +17,10 @@ public final class GameProgress {
     private GameProgress() {
         // NOT CALLED
     }
-    private static boolean areHerosOnTerrain(final GameMap map, final int x, final int y) {
-        return map.getMapPlayer1().get(x).get(y)
-                != null && map.getMapPlayer2().get(x).get(y) != null;
-    }
-    private static boolean onSameLocation(Hero hero1, Hero hero2) {
-        return (hero1.getxLocation() == hero2.getxLocation() && hero1.getyLocation() == hero2.getyLocation());
+
+    private static boolean onSameLocation(final Hero hero1, final Hero hero2) {
+        return (hero1.getxLocation() == hero2.getxLocation()
+                && hero1.getyLocation() == hero2.getyLocation());
     }
     public static void play(final GameInput gameInput) {
         int noHeros = gameInput.getPlayersNumber();
@@ -101,19 +99,28 @@ public final class GameProgress {
                     }
                 }
             }
-
+            // Apply angel bonuses
             for (int angelID = 0; angelID < gameInput.getAngelRound().get(round); angelID++) {
-                Angel newAngel = angelFactory.createAngel(gameInput.getAngelType().get(currentAngel), gameInput.getAngelLocation().get(2 * currentAngel), gameInput.getAngelLocation().get(2 * currentAngel + 1));
-                dataRepository.addData(new DataSpawn(newAngel, newAngel.getxLocation(), newAngel.getyLocation()));
+                // Create specific angel
+                Angel newAngel = angelFactory.createAngel(
+                        gameInput.getAngelType().get(currentAngel),
+                        gameInput.getAngelLocation().get(2 * currentAngel),
+                        gameInput.getAngelLocation().get(2 * currentAngel + 1));
+                dataRepository.addData(new DataSpawn(
+                        newAngel,
+                        newAngel.getxLocation(),
+                        newAngel.getyLocation()));
+                // Find all heros that are in the same cell with the current angel
                 for (int heroID = 0; heroID < noHeros; ++heroID) {
                     Hero currentHero = heros.get(heroID);
-                    if (currentHero.getxLocation() == newAngel.getxLocation() && currentHero.getyLocation() == newAngel.getyLocation()) {
+                    if (currentHero.getxLocation() == newAngel.getxLocation()
+                            && currentHero.getyLocation() == newAngel.getyLocation()) {
                         currentHero.isHelpedBy(newAngel);
                     }
                 }
                 ++currentAngel;
             }
-            System.out.println(round + " " + heros.get(33).getHP() + " " + heros.get(33).isAlive());
+            // End of round notification
             dataRepository.addData(new DataBlank());
         }
     }

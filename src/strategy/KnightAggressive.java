@@ -1,12 +1,14 @@
 package strategy;
 
+import common.Constants;
 import hero.Hero;
 
-public class KnightAggressive implements AttackStrategy {
+public final class KnightAggressive implements AttackStrategy {
+
     @Override
-    public void applyStrategy(Hero hero) {
-        hero.setHP(Math.round(hero.getHP() * 4.0f / 5.0f));
-        hero.getAbility1().setStrategyBonus(0.50f);
-        hero.getAbility2().setStrategyBonus(0.50f);
+    public void applyStrategy(final Hero hero) {
+        hero.setHP(Math.round(hero.getHP() * Constants.KNIGHT_AGGRESSIVE_HP));
+        hero.getAbility1().setStrategyBonus(Constants.KNIGHT_AGGRESSIVE_AP);
+        hero.getAbility2().setStrategyBonus(Constants.KNIGHT_AGGRESSIVE_AP);
     }
 }

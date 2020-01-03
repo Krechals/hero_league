@@ -5,7 +5,9 @@ import ability.AbilityList;
 import angel.Angel;
 import common.Constants;
 import map.TerrainList;
-import strategy.*;
+import strategy.BasicStrategy;
+import strategy.WizardAggressive;
+import strategy.WizardPassive;
 
 public class Wizard extends Hero {
     private int prevHP;
@@ -99,18 +101,28 @@ public class Wizard extends Hero {
         wiz.setPrevHP();
         attackHero(wiz);
     }
+
+    /**
+     * Wizard has interaction with an Angel.
+     * @param angel Angel that interacts with Wizard
+     */
     @Override
-    public void isHelpedBy(Angel angel) {
+    public void isHelpedBy(final Angel angel) {
         angel.help(this);
     }
+
+    /**
+     * Applying a specific strategy according to Wizard's HP.
+     */
     @Override
     public void setStrategy() {
-        if (this.getHP() >= this.getFullHp() / 2 || this.isParalized()) {
+        if (this.getHP() >= this.getFullHp() * Constants.HALF || this.isParalized()) {
             strategy = new BasicStrategy();
-        } else if (this.getFullHp() / 4 < this.getHP() && this.getHP() < this.getFullHp() / 2) {
+        } else if (this.getFullHp() * Constants.QUARTER < this.getHP()
+                    && this.getHP() < this.getFullHp() * Constants.HALF) {
             strategy = new WizardAggressive();
             strategy.applyStrategy(this);
-        } else if (this.getHP() < this.getFullHp() / 4 && 0 < this.getHP()) {
+        } else if (this.getHP() < this.getFullHp() * Constants.QUARTER && 0 < this.getHP()) {
             strategy = new WizardPassive();
             strategy.applyStrategy(this);
         }

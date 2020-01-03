@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class SingletonHeroList {
+    // Singleton Design Pattern - List of game's heros
     private static SingletonHeroList instance;
     private List<Hero> heros;
 

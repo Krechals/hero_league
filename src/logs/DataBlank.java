@@ -1,7 +1,7 @@
 package logs;
 
 public class DataBlank implements DataInterface {
-    public String toString() {
+    public final String toString() {
         return "";
     }
 

@@ -7,13 +7,13 @@ public class DataSpawn implements DataInterface {
     private int xLocation;
     private int yLocation;
 
-    public DataSpawn(Angel a, int x, int y) {
+    public DataSpawn(final Angel a, final int x, final int y) {
         angel = a;
         xLocation = x;
         yLocation = y;
     }
     @Override
-    public String toString() {
+    public final String toString() {
         return "Angel " + angel.getName() + " was spawned at " + xLocation + " " + yLocation;
     }
 }

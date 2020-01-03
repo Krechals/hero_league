@@ -7,50 +7,53 @@ import hero.Rogue;
 import hero.Wizard;
 import logs.DataAngelKill;
 import logs.DataHit;
-import logs.DataKill;
 
 public class TheDoomer extends Angel {
-    public TheDoomer(int x, int y) {
+    public TheDoomer(final int x, final int y) {
         super(x, y);
     }
     @Override
-    public void help(Knight knight) {
+    public final void help(final Knight knight) {
         if (knight.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
+            // Kills the Hero
             knight.dead();
             dataRepository.addData(new DataHit(this, knight));
             dataRepository.addData(new DataAngelKill(knight));
         }
     }
     @Override
-    public void help(Pyromancer pyro) {
+    public final void help(final Pyromancer pyro) {
         if (pyro.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
+            // Kills the Hero
             pyro.dead();
             dataRepository.addData(new DataHit(this, pyro));
             dataRepository.addData(new DataAngelKill(pyro));
         }
     }
     @Override
-    public void help(Rogue rogue) {
+    public final void help(final Rogue rogue) {
         if (rogue.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
+            // Kills the Hero
             rogue.dead();
             dataRepository.addData(new DataHit(this, rogue));
             dataRepository.addData(new DataAngelKill(rogue));
         }
     }
     @Override
-    public void help(Wizard wiz) {
+    public final void help(final Wizard wiz) {
         if (wiz.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
+            // Kills the Hero
             wiz.dead();
             dataRepository.addData(new DataHit(this, wiz));
             dataRepository.addData(new DataAngelKill(wiz));
         }
     }
     @Override
-    public String getName() {
+    public final String getName() {
         return "TheDoomer";
     }
 }

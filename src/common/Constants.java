@@ -50,6 +50,7 @@ public final class Constants {
     public static final String ROGUE_INITIAL = "R";
 
     public static final float NO_APLIFICATION = 1f;
+    public static final float OVERTIME_DAMAGE = 0.0001f;
     // Knight constants
     public static final int KNIGHT_HP = 900;
     public static final int KNIGHT_BONUS_HP = 80;
@@ -105,4 +106,102 @@ public final class Constants {
     public static final int HERO_LEVEL_UP = 50;
     public static final int HERO_XP_FORMULA = 200;
     public static final int HERO_XP_MULTIPLIER = 40;
+
+    // DamageAngel constants
+    public static final float DAMAGE_ANGEL_KNIGHT = 0.15f;
+    public static final float DAMAGE_ANGEL_PYRO = 0.20f;
+    public static final float DAMAGE_ANGEL_ROGUE = 0.30f;
+    public static final float DAMAGE_ANGEL_WIZ = 0.40f;
+
+    // DarkAngel constants
+    public static final int DARK_ANGEL_KNIGHT = 40;
+    public static final int DARK_ANGEL_PYRO = 30;
+    public static final int DARK_ANGEL_ROGUE = 10;
+    public static final int DARK_ANGEL_WIZ = 20;
+
+    // Dracula constants
+    public static final float DRACULA_KNIGHT_ABILITY = -0.20f;
+    public static final float DRACULA_PYRO_ABILITY = -0.30f;
+    public static final float DRACULA_ROGUE_ABILITY = -0.10f;
+    public static final float DRACULA_WIZ_ABILITY = -0.40f;
+    public static final int DRACULA_KNIGHT_HP = 60;
+    public static final int DRACULA_PYRO_HP = 40;
+    public static final int DRACULA_ROGUE_HP = 35;
+    public static final int DRACULA_WIZ_HP = 20;
+
+    // GoodBoy constants
+    public static final float GOODBOY_KNIGHT_ABILITY = 0.40f;
+    public static final float GOODBOY_PYRO_ABILITY = 0.50f;
+    public static final float GOODBOY_ROGUE_ABILITY = 0.40f;
+    public static final float GOODBOY_WIZ_ABILITY = 0.30f;
+    public static final int GOODBOY_KNIGHT_HP = 20;
+    public static final int GOODBOY_PYRO_HP = 30;
+    public static final int GOODBOY_ROGUE_HP = 40;
+    public static final int GOODBOY_WIZ_HP = 50;
+
+    // LevelUP constants
+    public static final float LEVEL_ANGEL_KNIGHT = 0.10f;
+    public static final float LEVEL_ANGEL_PYRO = 0.20f;
+    public static final float LEVEL_ANGEL_ROGUE = 0.15f;
+    public static final float LEVEL_ANGEL_WIZ = 0.25f;
+
+    // LifeGiver constants
+    public static final int LIFE_ANGEL_KNIGHT = 100;
+    public static final int LIFE_ANGEL_PYRO = 80;
+    public static final int LIFE_ANGEL_ROGUE = 90;
+    public static final int LIFE_ANGEL_WIZ = 120;
+
+    // SmallAngel constants
+    public static final float SMALL_KNIGHT_ABILITY = 0.10f;
+    public static final float SMALL_PYRO_ABILITY = 0.15f;
+    public static final float SMALL_ROGUE_ABILITY = 0.05f;
+    public static final float SMALL_WIZ_ABILITY = 0.10f;
+    public static final int SMALL_KNIGHT_HP = 10;
+    public static final int SMALL_PYRO_HP = 15;
+    public static final int SMALL_ROGUE_HP = 20;
+    public static final int SMALL_WIZ_HP = 25;
+
+    // Spawner constants
+    public static final int SPAWNER_ANGEL_KNIGHT = 200;
+    public static final int SPAWNER_ANGEL_PYRO = 150;
+    public static final int SPAWNER_ANGEL_ROGUE = 180;
+    public static final int SPAWNER_ANGEL_WIZ = 120;
+
+    // XPAngel constants
+    public static final int XP_ANGEL_KNIGHT = 45;
+    public static final int XP_ANGEL_PYRO = 50;
+    public static final int XP_ANGEL_ROGUE = 40;
+    public static final int XP_ANGEL_WIZ = 60;
+
+    // Percentages
+    public static final float HALF = 0.50f;
+    public static final float THIRD = 0.33333f;
+    public static final float QUARTER = 0.25f;
+    public static final float FIFTH = 0.20f;
+    public static final float SEVENTH = 0.14285f;
+
+    // Strategy constants
+    // Knight
+    public static final float KNIGHT_AGGRESSIVE_HP = 0.80f;
+    public static final float KNIGHT_AGGRESSIVE_AP = 0.50f;
+    public static final float KNIGHT_PASSIVE_HP = 1.25f;
+    public static final float KNIGHT_PASSIVE_AP = -0.20f;
+
+    // Pyromancer
+    public static final float PYRO_AGGRESSIVE_HP = 0.75f;
+    public static final float PYRO_AGGRESSIVE_AP  = 0.70f;
+    public static final float PYRO_PASSIVE_HP = 1.33333f;
+    public static final float PYRO_PASSIVE_AP = -0.30f;
+
+    // Rogue
+    public static final float ROGUE_AGGRESSIVE_HP = 0.85714f;
+    public static final float ROGUE_AGGRESSIVE_AP = 0.40f;
+    public static final float ROGUE_PASSIVE_HP = 1.50f;
+    public static final float ROGUE_PASSIVE_AP = -0.10f;
+
+    // Wizard
+    public static final float WIZARD_AGGRESSIVE_HP = 0.90f;
+    public static final float WIZARD_AGGRESSIVE_AP = 0.60f;
+    public static final float WIZARD_PASSIVE_HP = 1.20f;
+    public static final float WIZARD_PASSIVE_AP = -0.20f;
 }

@@ -6,7 +6,6 @@ public class DamageAbility extends Ability {
     private float terrainAmplifier;
     private float raceAmplifier;
     protected float damage;
-    protected int initialDamage;
     protected float bonusDamage;
 
     public DamageAbility() {

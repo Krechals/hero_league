@@ -1,12 +1,12 @@
 package logs;
 
 public class DataNewRound implements DataInterface {
-    int round;
+    private int round;
 
-    public DataNewRound(int r) {
+    public DataNewRound(final int r) {
         this.round = r;
     }
-    public String toString() {
+    public final String toString() {
         return "~~ Round " + round + " ~~";
     }
 

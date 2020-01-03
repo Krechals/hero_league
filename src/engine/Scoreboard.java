@@ -7,6 +7,8 @@ import fileio.FileSystem;
 import java.util.List;
 
 public final class Scoreboard {
+    // Uses GreatMagician's notifications to print logs from each single round
+
     private Scoreboard() {
         // NOT CALLED
     }

@@ -1,5 +1,6 @@
 package ability;
 
+import common.Constants;
 import hero.Hero;
 
 public class OvertimeAbility extends Ability {
@@ -35,7 +36,8 @@ public class OvertimeAbility extends Ability {
      */
     @Override
     public final int getBaseDamage(final Hero h) {
-        return Math.round(Math.round(damage * terrainAmplifier) * raceAmplifier - 0.0001f);
+        return Math.round(Math.round(damage * terrainAmplifier)
+                * raceAmplifier - Constants.OVERTIME_DAMAGE);
     }
 
     /**
@@ -44,7 +46,7 @@ public class OvertimeAbility extends Ability {
      * @return Rounds that attacker paralyses a hero
      */
     @Override
-    public int getParalizedRounds(final Hero h) {
+    public int getParalyzedRounds(final Hero h) {
         return paralizedRounds;
     }
 
@@ -72,10 +74,20 @@ public class OvertimeAbility extends Ability {
     public void updateSkill(final int level) {
         damage = damage + bonusDamage;
     }
+
+    /**
+     * Sets damage amplifier for race.
+     * @param amplifier Amplifier percent
+     */
     @Override
     public final void setRaceAmplifier(final float amplifier) {
         raceAmplifier = amplifier + angelBonus + strategyBonus;
     }
+
+    /**
+     * Sets damage amplifier for terrain.
+     * @param amplifier Amplifier percent
+     */
     @Override
     public final void setTerrainAmplifier(final float amplifier) {
         terrainAmplifier = amplifier;

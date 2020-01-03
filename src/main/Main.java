@@ -1,7 +1,6 @@
 package main;
 
 import engine.GameProgress;
-import engine.GreatMagician;
 import engine.Scoreboard;
 import setup.HeroSetup;
 
@@ -14,7 +13,6 @@ public final class Main {
         GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
         GameInput gameInput = gameInputLoader.load();
         HeroSetup.setup(gameInput.getPlayersType(), gameInput.getPlayersLocation());
-        GreatMagician GM = GreatMagician.getInstance();
 
         // Gameplay
         GameProgress.play(gameInput);

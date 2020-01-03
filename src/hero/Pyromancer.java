@@ -6,7 +6,9 @@ import ability.AbilityList;
 import angel.Angel;
 import common.Constants;
 import map.TerrainList;
-import strategy.*;
+import strategy.BasicStrategy;
+import strategy.PyromancerAggressive;
+import strategy.PyromancerPassive;
 
 public class Pyromancer extends Hero {
     public Pyromancer(final int id, final int x, final int y) {
@@ -98,18 +100,28 @@ public class Pyromancer extends Hero {
         wiz.setPrevHP();
         attackHero(wiz);
     }
+
+    /**
+     * Pyromancer has interaction with an Angel.
+     * @param angel Angel that interacts with Pyromancer
+     */
     @Override
-    public void isHelpedBy(Angel angel) {
+    public void isHelpedBy(final Angel angel) {
         angel.help(this);
     }
+
+    /**
+     * Applying a specific strategy according to Pyromancer's HP.
+     */
     @Override
     public void setStrategy() {
-        if (this.getHP() >= this.getFullHp() / 3 || this.isParalized()) {
+        if (this.getHP() >= this.getFullHp() * Constants.THIRD || this.isParalized()) {
             strategy = new BasicStrategy();
-        } else if (this.getFullHp() / 4 < this.getHP() && this.getHP() < this.getFullHp() / 3) {
+        } else if (this.getFullHp() * Constants.QUARTER < this.getHP()
+                    && this.getHP() < this.getFullHp() * Constants.THIRD) {
             strategy = new PyromancerAggressive();
             strategy.applyStrategy(this);
-        } else if (this.getHP() < this.getFullHp() / 4 && 0 < this.getHP()) {
+        } else if (this.getHP() < this.getFullHp() * Constants.QUARTER && 0 < this.getHP()) {
             strategy = new PyromancerPassive();
             strategy.applyStrategy(this);
         }

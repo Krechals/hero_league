@@ -14,7 +14,7 @@ final class HeroFactory {
         // NOT CALLED
     }
 
-    // Factory Design Pattern
+    // Factory Design Pattern - Creating Heros
     Hero createHero(final String type, final int id, final int x, final int y) {
         switch (type) {
             case Constants.KNIGHT_INITIAL:

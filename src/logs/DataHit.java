@@ -7,12 +7,12 @@ public class DataHit implements DataInterface {
     private Angel angel;
     private Hero hero;
 
-    public DataHit(Angel a, Hero h) {
+    public DataHit(final Angel a, final Hero h) {
         angel = a;
         hero = h;
     }
     @Override
-    public String toString() {
+    public final String toString() {
         return angel.getName() + " hit " + hero.getName() + " " + hero.getID();
     }
 }

@@ -12,18 +12,22 @@ public abstract class Angel {
     public Angel() {
 
     }
-    public Angel(int x, int y) {
+    public Angel(final int x, final int y) {
         xLocation = x;
         yLocation = y;
 
     }
-    public int getxLocation() {
+    public final int getxLocation() {
         return xLocation;
     }
-    public int getyLocation() {
+    public final int getyLocation() {
         return yLocation;
     }
 
+    /*
+        Visitor Design Pattern
+        Each angel has a different interaction with each specific hero
+    */
     public abstract void help(Knight knight);
     public abstract void help(Pyromancer pyro);
     public abstract void help(Rogue rogue);

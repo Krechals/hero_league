@@ -5,7 +5,9 @@ import ability.AbilityList;
 import angel.Angel;
 import common.Constants;
 import map.TerrainList;
-import strategy.*;
+import strategy.BasicStrategy;
+import strategy.RogueAggressive;
+import strategy.RoguePassive;
 
 public class Rogue extends Hero {
     public Rogue(final int id, final int x, final int y) {
@@ -42,8 +44,8 @@ public class Rogue extends Hero {
         h.unsetOvertimes();
         h.decreaseHP(a2.getBaseDamage(h));
         h.setOvertimeDamage(a2.getOvertimeDamage());
-        h.setTimeDamage(a2.getParalizedRounds(h));
-        h.setParalizedRounds(a2.getParalizedRounds(h));
+        h.setTimeDamage(a2.getParalyzedRounds(h));
+        h.setParalizedRounds(a2.getParalyzedRounds(h));
 
         if (h.getHP() <= 0) {
             h.killPlayer();
@@ -98,18 +100,28 @@ public class Rogue extends Hero {
         wiz.setPrevHP();
         attackHero(wiz);
     }
+
+    /**
+     * Rogue has interaction with an Angel.
+     * @param angel Angel that interacts with Knight
+     */
     @Override
-    public void isHelpedBy(Angel angel) {
+    public void isHelpedBy(final Angel angel) {
         angel.help(this);
     }
+
+    /**
+     * Applying a specific strategy according to Rogue's HP.
+     */
     @Override
     public void setStrategy() {
-        if (this.getHP() >= this.getFullHp() / 5 || this.isParalized()) {
+        if (this.getHP() >= this.getFullHp() * Constants.FIFTH || this.isParalized()) {
             strategy = new BasicStrategy();
-        } else if (this.getFullHp() / 7 < this.getHP() && this.getHP() < this.getFullHp() / 5) {
+        } else if (this.getFullHp() * Constants.SEVENTH < this.getHP()
+                    && this.getHP() < this.getFullHp() * Constants.FIFTH) {
             strategy = new RogueAggressive();
             strategy.applyStrategy(this);
-        } else if (this.getHP() < this.getFullHp() / 7 && 0 < this.getHP()) {
+        } else if (this.getHP() < this.getFullHp() * Constants.SEVENTH && 0 < this.getHP()) {
             strategy = new RoguePassive();
             strategy.applyStrategy(this);
         }

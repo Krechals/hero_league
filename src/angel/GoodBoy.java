@@ -1,5 +1,6 @@
 package angel;
 
+import common.Constants;
 import engine.DataRepository;
 import hero.Knight;
 import hero.Pyromancer;
@@ -8,47 +9,55 @@ import hero.Wizard;
 import logs.DataHelp;
 
 public class GoodBoy extends Angel {
-    public GoodBoy(int x, int y) {
+    public GoodBoy(final int x, final int y) {
         super(x, y);
     }
     @Override
-    public void help(Knight knight) {
+    public final void help(final Knight knight) {
         if (knight.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            knight.addAngelBonus(0.40f);
-            knight.setHP(knight.getHP() + 20);
+            // Increases ability power
+            knight.addAngelBonus(Constants.GOODBOY_KNIGHT_ABILITY);
+            // Increases hero's HP
+            knight.setHP(knight.getHP() + Constants.GOODBOY_KNIGHT_HP);
             dataRepository.addData(new DataHelp(this, knight));
         }
     }
     @Override
-    public void help(Pyromancer pyro) {
+    public final void help(final Pyromancer pyro) {
         if (pyro.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            pyro.addAngelBonus(0.50f);
-            pyro.setHP(pyro.getHP() + 30);
+            // Increases ability power
+            pyro.addAngelBonus(Constants.GOODBOY_PYRO_ABILITY);
+            // Increases hero's HP
+            pyro.setHP(pyro.getHP() + Constants.GOODBOY_PYRO_HP);
             dataRepository.addData(new DataHelp(this, pyro));
         }
     }
     @Override
-    public void help(Rogue rogue) {
+    public final void help(final Rogue rogue) {
         if (rogue.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            rogue.addAngelBonus(0.40f);
-            rogue.setHP(rogue.getHP() + 40);
+            // Increases ability power
+            rogue.addAngelBonus(Constants.GOODBOY_ROGUE_ABILITY);
+            // Increases hero's HP
+            rogue.setHP(rogue.getHP() + Constants.GOODBOY_ROGUE_HP);
             dataRepository.addData(new DataHelp(this, rogue));
         }
     }
     @Override
-    public void help(Wizard wiz) {
+    public final void help(final Wizard wiz) {
         if (wiz.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            wiz.addAngelBonus(0.30f);
-            wiz.setHP(wiz.getHP() + 50);
+            // Increases ability power
+            wiz.addAngelBonus(Constants.GOODBOY_WIZ_ABILITY);
+            // Increases hero's HP
+            wiz.setHP(wiz.getHP() + Constants.GOODBOY_WIZ_HP);
             dataRepository.addData(new DataHelp(this, wiz));
         }
     }
     @Override
-    public String getName() {
+    public final String getName() {
         return "GoodBoy";
     }
 }

@@ -1,5 +1,6 @@
 package angel;
 
+import common.Constants;
 import engine.DataRepository;
 import hero.Knight;
 import hero.Pyromancer;
@@ -9,43 +10,47 @@ import logs.DataHelp;
 
 public class DamageAngel extends Angel {
 
-    public DamageAngel(int x, int y) {
+    public DamageAngel(final int x, final int y) {
         super(x, y);
     }
     @Override
-    public void help(Knight knight) {
+    public final void help(final Knight knight) {
         if (knight.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            knight.addAngelBonus(0.15f);
+            // Adds ability bonus
+            knight.addAngelBonus(Constants.DAMAGE_ANGEL_KNIGHT);
             dataRepository.addData(new DataHelp(this, knight));
         }
     }
     @Override
-    public void help(Pyromancer pyro) {
+    public final void help(final Pyromancer pyro) {
         if (pyro.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            pyro.addAngelBonus(0.20f);
+            // Adds ability bonus
+            pyro.addAngelBonus(Constants.DAMAGE_ANGEL_PYRO);
             dataRepository.addData(new DataHelp(this, pyro));
         }
     }
     @Override
-    public void help(Rogue rogue) {
+    public final void help(final Rogue rogue) {
         if (rogue.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            rogue.addAngelBonus(0.30f);
+            // Adds ability bonus
+            rogue.addAngelBonus(Constants.DAMAGE_ANGEL_ROGUE);
             dataRepository.addData(new DataHelp(this, rogue));
         }
     }
     @Override
-    public void help(Wizard wiz) {
+    public final void help(final Wizard wiz) {
         if (wiz.isAlive()) {
             DataRepository dataRepository = DataRepository.getInstance();
-            wiz.addAngelBonus(0.40f);
+            // Adds ability bonus
+            wiz.addAngelBonus(Constants.DAMAGE_ANGEL_WIZ);
             dataRepository.addData(new DataHelp(this, wiz));
         }
     }
     @Override
-    public String getName() {
+    public final String getName() {
         return "DamageAngel";
     }
 }

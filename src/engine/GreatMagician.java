@@ -5,9 +5,16 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class GreatMagician implements Observer {
+public final class GreatMagician implements Observer {
+    /*
+        Singleton Design Pattern:
+        - We need a single Admin in the game
+        Observer Design Pattern:
+        - Admin must receive log notifications
+     */
     private static GreatMagician instance;
     private List<String> logs;
+
     private GreatMagician() {
         logs = new ArrayList<>();
     }
@@ -17,7 +24,8 @@ public class GreatMagician implements Observer {
         }
         return instance;
     }
-    public void update(Observable obs, Object data) {
+    // Stores the logs received
+    public void update(final Observable obs, final Object data) {
         logs.add(data.toString());
     }
     public List<String> getLogs() {

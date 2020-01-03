@@ -8,7 +8,12 @@ public final class AbilityFactory {
     public static AbilityFactory getInstance() {
         return INSTANCE;
     }
-    // Factory Design Pattern
+
+    /**
+     * Factory Design Pattern.
+     * @param ability Ability to be created
+     * @return Ability instance
+     */
     public Ability createAbility(final AbilityList ability) {
         if (ability == AbilityList.BACKSTAB) {
             return new Backstab();

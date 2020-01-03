@@ -1,12 +1,14 @@
 package strategy;
 
+import common.Constants;
 import hero.Hero;
 
-public class RoguePassive implements AttackStrategy{
+public final class RoguePassive implements AttackStrategy {
+
     @Override
-    public void applyStrategy(Hero hero) {
-        hero.setHP(3 * hero.getHP() / 2);
-        hero.getAbility1().setStrategyBonus(-0.10f);
-        hero.getAbility2().setStrategyBonus(-0.10f);
+    public void applyStrategy(final Hero hero) {
+        hero.setHP((int) (hero.getHP() * Constants.ROGUE_PASSIVE_HP));
+        hero.getAbility1().setStrategyBonus(Constants.ROGUE_PASSIVE_AP);
+        hero.getAbility2().setStrategyBonus(Constants.ROGUE_PASSIVE_AP);
     }
 }

@@ -1,7 +1,6 @@
 package hero;
 
 import angel.Angel;
-import logs.DataHelp;
 import logs.DataLevelUp;
 import ability.Ability;
 import common.Constants;
@@ -13,7 +12,6 @@ public abstract class Hero {
     private int id;
     private int fullHp;
     private int initialHp;
-    public int noStrategyHP;
     private int hp;
     private int bonusHp;
     private int xp;
@@ -36,7 +34,6 @@ public abstract class Hero {
         this.hp = hp;
         this.fullHp = hp;
         this.initialHp = hp;
-        this.noStrategyHP = hp;
         this.bonusHp = bonusHp;
         this.xp = 0;
         this.level = 0;
@@ -47,9 +44,6 @@ public abstract class Hero {
         this.isAlive = true;
         this.terrain = null;
         this.angelBonus = 0;
-    }
-    public int getOvertimeDamaged() {
-        return timeDamage;
     }
     /**
      * Moves a player on the map.
@@ -92,8 +86,8 @@ public abstract class Hero {
                 * Constants.HERO_XP_MULTIPLIER);
         this.updateLevel();
     }
-    public final void addXP(final int xp) {
-        this.xp += xp;
+    public final void addXP(final int addedXP) {
+        this.xp += addedXP;
     }
     public final Ability getAbility1() {
         return a1;
@@ -109,30 +103,27 @@ public abstract class Hero {
     }
     public final void decreaseHP(final int damage) {
         this.hp -= damage;
-        this.noStrategyHP -= damage;
     }
-    public void setHP(int hp) {
-        this.hp = hp;
-        this.noStrategyHP = hp;
-        if (this.hp > fullHp) {
-            this.hp = fullHp;
-            this.noStrategyHP = hp;
-        }
-    }
-    public void setStrategyHP(int hp) {
-        this.hp = hp;
+
+    public final void setHP(final int newHP) {
+        this.hp = newHP;
         if (this.hp > fullHp) {
             this.hp = fullHp;
         }
     }
 
-    public void revive() {
+    public final void revive() {
         isAlive = true;
     }
-    public void dead() {
+    public final void dead() {
         isAlive = false;
     }
-    public void addAngelBonus(float bonus) {
+
+    /**
+     * Adds Angel Bonus to both hero's abilities.
+     * @param bonus Percent to be added to abilities
+     */
+    public final void addAngelBonus(final float bonus) {
         angelBonus += bonus;
         a1.setAngelBonus(angelBonus);
         a2.setAngelBonus(angelBonus);
@@ -147,7 +138,6 @@ public abstract class Hero {
         if (timeDamage > 0) {
             --timeDamage;
             hp -= overtimeDamaged;
-            this.noStrategyHP -= overtimeDamaged;
             if (hp <= 0) {
                 this.killPlayer();
             }
@@ -194,8 +184,8 @@ public abstract class Hero {
     final void setParalizedRounds(final int rounds) {
         paralizedRounds = rounds;
     }
-    // Checks and updates Hero's level
-    public void updateLevel() {
+    // Checks and updates Hero's level if needed
+    public final void updateLevel() {
         int newLevel = (xp - Constants.HERO_FIRST_LEVEL) / Constants.HERO_LEVEL_UP;
         if (newLevel > level) {
             DataRepository dataRepository = DataRepository.getInstance();
@@ -207,12 +197,11 @@ public abstract class Hero {
             }
             level = newLevel;
             hp = initialHp + newLevel * bonusHp;
-            noStrategyHP = initialHp + newLevel * bonusHp;
             fullHp = hp;
         }
     }
-    public void levelUP() {
-        this.xp = 200 + (this.level + 1) * 50;
+    public final void levelUP() {
+        this.xp = Constants.HERO_FIRST_LEVEL + (this.level + 1) * Constants.HERO_LEVEL_UP;
         this.updateLevel();
     }
     final void unsetOvertimes() {
@@ -220,14 +209,17 @@ public abstract class Hero {
         overtimeDamaged = 0;
         timeDamage = 0;
     }
-    // Visitor Design Pattern
+    // Visitor Design Pattern - Hero vs Hero attacks
     public abstract void isAttackedBy(Hero hero);
     abstract void attack(Knight knight);
     abstract void attack(Pyromancer pyro);
     abstract void attack(Rogue rogue);
     abstract void attack(Wizard wiz);
 
+    // Visitor Design Pattern - Receive Angel Bonus
     public abstract void isHelpedBy(Angel angel);
+    // Strategy Design Pattern - Attacking strategy
     public abstract void setStrategy();
+    // Hero's name
     public abstract String getName();
 }

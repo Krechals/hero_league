@@ -1,12 +1,14 @@
 package strategy;
 
+import common.Constants;
 import hero.Hero;
 
-public class WizardPassive implements AttackStrategy {
+public final class WizardPassive implements AttackStrategy {
+
     @Override
-    public void applyStrategy(Hero hero) {
-        hero.setHP(Math.round(hero.getHP() * 6.0f / 5.0f));
-        hero.getAbility1().setStrategyBonus(-0.20f);
-        hero.getAbility2().setStrategyBonus(-0.20f);
+    public void applyStrategy(final Hero hero) {
+        hero.setHP((int) (hero.getHP() * Constants.WIZARD_PASSIVE_HP));
+        hero.getAbility1().setStrategyBonus(Constants.WIZARD_PASSIVE_AP);
+        hero.getAbility2().setStrategyBonus(Constants.WIZARD_PASSIVE_AP);
     }
 }
